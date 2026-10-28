@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jamoalar & Tarkiblar | ARENA UZ</title>
+  <meta name="description" content="Mini-futbol jamoalari katalogi, o'yinchilar tarkibi, statistikalar va boshqa jamoaga qarshi o'rtoqlik o'yini (sparing) chaqiruvi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. THEME & DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      --bg-primary: #070a0f;
+      --bg-surface: #0e1520;
+      --bg-surface-elevated: #151f2e;
+      --bg-card: rgba(17, 26, 39, 0.75);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(34, 197, 94, 0.5);
+      --border-glow: rgba(34, 197, 94, 0.35);
+      
+      --accent-green: #10b981;
+      --accent-neon: #22c55e;
+      --accent-lime: #84cc16;
+      --accent-gold: #f59e0b;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-red: #ef4444;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --shadow-glow: 0 0 25px rgba(34, 197, 94, 0.25);
+      --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 45%),
+        linear-gradient(to bottom, #070a0f, #090e17);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      border: none;
+      outline: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       2. NAVIGATION
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 10, 15, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-neon), var(--accent-green));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+      font-size: 22px;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-neon);
+      font-weight: 700;
+      display: block;
+      margin-top: -2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-link {
+      padding: 10px 18px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-link.active {
+      color: var(--accent-neon);
+      border-bottom: 2px solid var(--accent-neon);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: transparent;
+      color: #fff;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       3. PAGE HEADER & SEARCH TOOLBAR
+       ========================================================================== */
+    .teams-header {
+      padding: 50px 0 35px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .page-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #93c5fd;
+      margin-bottom: 14px;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .page-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 650px;
+      margin: 0 auto 30px;
+    }
+
+    /* Search & Filter Bar */
+    .filter-toolbar {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .search-box-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 15px 24px 15px 50px;
+      color: #fff;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-neon);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    .search-icon-inside {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--text-dim);
+    }
+
+    .filter-pills-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-pill:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    .filter-pill.active {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: var(--accent-neon);
+      color: var(--accent-neon);
+    }
+
+    /* ==========================================================================
+       4. TEAMS GRID SECTION
+       ========================================================================== */
+    .teams-section {
+      padding: 50px 0 90px;
+    }
+
+    .teams-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .team-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(34, 197, 94, 0.35);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .team-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .team-badge-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-surface-elevated);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .team-league-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--accent-neon);
+      text-transform: uppercase;
+    }
+
+    .team-league-tag.cup {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--accent-gold);
+    }
+
+    .team-title-wrap h4 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .team-meta-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .team-stats-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .team-stats-box .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      display: block;
+    }
+
+    .team-stats-box .stat-lbl {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .team-card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 18px;
+    }
+
+    .btn-roster {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .btn-roster:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-challenge {
+      background: linear-gradient(135deg, #22c55e, #10b981);
+      color: #042612;
+      font-size: 0.84rem;
+      font-weight: 800;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .btn-challenge:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.35);
+    }
+
+    /* ==========================================================================
+       5. ROSTER MODAL (DETAILED TEAM SQUAD)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .roster-modal {
+      background: #0d1522;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      max-width: 620px;
+      width: 100%;
+      padding: 34px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.92);
+      transition: var(--transition);
+    }
+
+    .modal-backdrop.open .roster-modal {
+      transform: scale(1);
+    }
+
+    .modal-close-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .roster-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .roster-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .players-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .player-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+    }
+
+    .player-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--accent-neon);
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .player-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      margin-left: 12px;
+    }
+
+    .player-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .player-pos-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+
+    .player-stat {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       6. CHALLENGE (SPARING) MODAL (TELEGRAM BOT API)
+       ========================================================================== */
+    .challenge-modal {
+      background: #0d1522;
+      border: 1px solid var(--accent-neon);
+      border-radius: var(--radius-lg);
+      max-width: 540px;
+      width: 100%;
+      padding: 34px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.92);
+      transition: var(--transition);
+    }
+
+    .modal-backdrop.open .challenge-modal {
+      transform: scale(1);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      color: #fff;
+      font-size: 0.92rem;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-neon);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    .btn-submit-challenge {
+      width: 100%;
+      background: linear-gradient(135deg, #22c55e, #10b981);
+      color: #042612;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      transition: var(--transition);
+    }
+
+    .btn-submit-challenge:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+    }
+
+    .btn-submit-challenge:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Toast */
+    .toast-box {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #111a27;
+      border: 1px solid var(--accent-neon);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      padding: 16px 22px;
+      border-radius: var(--radius-md);
+      z-index: 9999;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 380px;
+    }
+
+    .toast-box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-box.error {
+      border-color: var(--accent-red);
+    }
+
+    /* ==========================================================================
+       7. FOOTER
+       ========================================================================== */
+    .footer {
+      background: #040609;
+      border-top: 1px solid var(--border-subtle);
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-neon);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .teams-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: #070a0f;
+        flex-direction: column;
+        padding: 40px 24px;
+        transition: 0.3s ease;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .nav-menu.open { left: 0; }
+      .hamburger-btn { display: block; }
+      .teams-grid { grid-template-columns: 1fr; }
+      .page-title { font-size: 2.1rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">⚽</div>
+        <div class="brand-text">
+          <h1>ARENA UZ</h1>
+          <span>MINI-FUTBOL & LIGA</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link">Bosh sahifa</a></li>
+          <li><a href="booking.html" class="nav-link">Maydon band qilish</a></li>
+          <li><a href="tournament.html" class="nav-link">Turnir jadvali</a></li>
+          <li><a href="teams.html" class="nav-link active">Jamoalar</a></li>
+          <li><a href="contact.html" class="nav-link">Bog'lanish & Qoidalar</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <a href="booking.html" class="btn-challenge" style="padding: 10px 18px;">
+          <span>Maydon Bron ⚡</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menyu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       PAGE HEADER & TOOLBAR
+       ======================================================================== -->
+  <header class="teams-header">
+    <div class="container">
+      <div class="page-badge">
+        <span>👥 Chempionat Ishtirokchilari</span>
+      </div>
+      <h2 class="page-title">Jamoalar & O'yinchilar Katalogi</h2>
+      <p class="page-subtitle">
+        Ligada ishtirok etayotgan rasmiy jamoalar, ularning tarkibi va o'yinchilar statistikasi. Istalgan jamoani o'rtoqlik o'yiniga (sparing) chorlang!
+      </p>
+
+      <!-- Search & Filters -->
+      <div class="filter-toolbar">
+        <div class="search-box-wrap">
+          <span class="search-icon-inside">🔍</span>
+          <input type="text" id="teamSearchInput" class="search-input" placeholder="Jamoa nomi, sardor yoki tuman bo'yicha qidiring..." oninput="handleSearch(this.value)">
+        </div>
+
+        <div class="filter-pills-row">
+          <button class="filter-pill active" onclick="filterByGroup('all', this)">Barcha Jamoalar (6)</button>
+          <button class="filter-pill" onclick="filterByGroup('Super Liga A', this)">🦁 Super Liga A</button>
+          <button class="filter-pill" onclick="filterByGroup('Super Liga B', this)">🦅 Super Liga B</button>
+          <button class="filter-pill" onclick="filterByGroup('Havaskorlar', this)">🏆 Havaskorlar Kubogi</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       TEAMS GRID SECTION
+       ======================================================================== -->
+  <main class="teams-section">
+    <div class="container">
+      <div class="teams-grid" id="teamsGridContainer">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       MODAL: ROSTER DETAIL MODAL
+       ======================================================================== -->
+  <div class="modal-backdrop" id="rosterModal">
+    <div class="roster-modal">
+      <button class="modal-close-icon" onclick="closeRosterModal()">✕</button>
+
+      <div class="roster-header">
+        <div class="team-badge-icon" id="modalTeamIcon">🦁</div>
+        <div>
+          <h3 id="modalTeamName">Paxtakor Yunior</h3>
+          <span style="color: var(--accent-neon); font-size: 0.85rem; font-weight: 700;" id="modalTeamLeague">Super Liga (A Guruh)</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        <span>Murabbiy: <strong style="color: #fff;" id="modalCoachName">-</strong></span>
+        <span>Sardor: <strong style="color: #fff;" id="modalCaptainName">-</strong></span>
+      </div>
+
+      <h5 style="margin-bottom: 12px; font-size: 0.95rem; font-weight: 700; color: #fff;">O'yinchilar Ro'yxati:</h5>
+      <div class="players-list" id="modalPlayersList">
+        <!-- Dynamic players injected by JS -->
+      </div>
+
+      <button class="btn-challenge" style="width: 100%; padding: 13px; font-size: 0.95rem;" onclick="triggerChallengeFromRoster()">
+        Ushbu Jamoani O'rtoqlik O'yiniga Chaqirish ⚔️
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: CHALLENGE (SPARING) MODAL WITH DIRECT TELEGRAM API
+       ======================================================================== -->
+  <div class="modal-backdrop" id="challengeModal">
+    <div class="challenge-modal">
+      <button class="modal-close-icon" onclick="closeChallengeModal()">✕</button>
+
+      <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">
+        <span>⚔️</span> O'rtoqlik O'yini Chaqiruvi
+      </h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 22px;">
+        Raqib jamoaga o'rtoqlik o'yiniga (sparing) taklif jo'nating. Ariza adminga Telegram orqali yuboriladi va ikkala sardor bog'lanadi.
+      </p>
+
+      <form id="challengeForm" onsubmit="handleChallengeSubmit(event)">
+        <div class="form-group">
+          <label class="form-label" for="targetTeamName">Raqib Jamoa</label>
+          <input type="text" id="targetTeamName" class="form-input" readonly style="background: rgba(255,255,255,0.04); color: var(--accent-neon); font-weight: 700;">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="myTeamName">Sizning Jamoangiz Nomi *</label>
+          <input type="text" id="myTeamName" class="form-input" placeholder="Masalan: Real Yunusobod" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="myCaptainName">Ismingiz (Sardor) *</label>
+          <input type="text" id="myCaptainName" class="form-input" placeholder="Masalan: Doston Bekmurodov" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="myPhone">Telefon Raqamingiz *</label>
+          <input type="tel" id="myPhone" class="form-input" placeholder="+998 90 123 45 67" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="preferredDate">Taklif Qilinayotgan Vaqt</label>
+          <input type="text" id="preferredDate" class="form-input" placeholder="Masalan: Ertaga soat 20:00 da" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="preferredArena">Tavsiya Qilinadigan Maydon</label>
+          <select id="preferredArena" class="form-input" style="cursor: pointer;">
+            <option value="1-Arena (Yopiq)">1-Arena (Yopiq Stadion)</option>
+            <option value="2-Arena (Ochiq)">2-Arena (Ochiq Stadion)</option>
+            <option value="VIP Mini-Stadion">VIP Mini-Stadion</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="challengeNotes">O'yin Shartlari / Izoh</label>
+          <input type="text" id="challengeNotes" class="form-input" placeholder="Masalan: Maydon to'lovi 50/50, forma rangi oq...">
+        </div>
+
+        <button type="submit" class="btn-submit-challenge" id="submitChallengeBtn">
+          <span id="btnChallText">Chaqiruvni Telegram Botga Jo'natish</span>
+          <span id="btnChallIcon">🚀</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-box" id="toast">
+    <div id="toastIcon" style="font-size: 24px;">✅</div>
+    <div id="toastMessage" style="font-size: 0.9rem; font-weight: 600;">Chaqiruvingiz adminga yetkazildi!</div>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 14px;">
+            <div class="logo-icon">⚽</div>
+            <div class="brand-text">
+              <h1>ARENA UZ</h1>
+              <span>MINI-FUTBOL & LIGA</span>
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 300px;">
+            Mini-futbol jamoalari katalogi, sparing raqiblar topish platformasi va professional ligalar markazi.
+          </p>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Sahifalar</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Bosh sahifa</a></li>
+            <li><a href="booking.html">Maydon band qilish</a></li>
+            <li><a href="tournament.html">Turnir jadvali</a></li>
+            <li><a href="teams.html">Jamoalar ro'yxati</a></li>
+            <li><a href="contact.html">Bog'lanish</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Xizmatlar</h5>
+          <ul class="footer-links">
+            <li><a href="booking.html">Maydon bron qilish</a></li>
+            <li><a href="tournament.html">Turnirga ariza topshirish</a></li>
+            <li><a href="javascript:void(0)" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Sparing chaqiruvi</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Aloqa</h5>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px;">📍 Toshkent, Yunusobod tumani</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px;">📞 +998 (90) 123-45-67</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">🤖 Telegram: @ArenaUz_bot</p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 25px; display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-dim);">
+        <p>&copy; 2026 ARENA UZ. Jamoalar va O'yinchilar Katalogi.</p>
+        <p>Barcha huquqlar himoyalangan.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       JAVASCRIPT LOGIC
+       ======================================================================== -->
+  <script>
+    // 1. CONFIGURATION
+    const TG_CONFIG = {
+      botToken: "9151533091:AAF86MT4M0FcN8mnd_U4c0cCmb-lfblukiY",
+      adminChatId: "9151533091"
+    };
+
+    // Mobile Menu
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    hamburgerBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+    // 2. DATA: TEAMS LIST
+    const TEAMS_LIST = [
+      {
+        id: "paxtakor-yunior",
+        name: "Paxtakor Yunior",
+        icon: "🦁",
+        league: "Super Liga A",
+        coach: "Rustam Mirzayev",
+        captain: "Sardor Rahimov",
+        played: 5,
+        wins: 4,
+        goals: 24,
+        pts: 13,
+        players: [
+          { num: 1, name: "Jasur Qodirov", pos: "GK (Darvozabon)", goals: 0 },
+          { num: 4, name: "Temur Aliyev", pos: "DEF (Himoyachi)", goals: 2 },
+          { num: 7, name: "Sardor Rahimov (C)", pos: "FWD (Hujumchi)", goals: 14 },
+          { num: 8, name: "Bobur Karimov", pos: "MID (Yarim himoya)", goals: 5 },
+          { num: 10, name: "Aziz Ismoilov", pos: "MID (Yarim himoya)", goals: 3 }
+        ]
+      },
+      {
+        id: "bunyodkor-stars",
+        name: "Bunyodkor Stars",
+        icon: "🦅",
+        league: "Super Liga A",
+        coach: "Shuhrat Hasanov",
+        captain: "Ulug'bek Boboyev",
+        played: 5,
+        wins: 3,
+        goals: 19,
+        pts: 10,
+        players: [
+          { num: 12, name: "Doniyor Ahmedov", pos: "GK (Darvozabon)", goals: 0 },
+          { num: 3, name: "Ixtiyor Shokirov", pos: "DEF (Himoyachi)", goals: 1 },
+          { num: 9, name: "Ulug'bek Boboyev (C)", pos: "FWD (Hujumchi)", goals: 11 },
+          { num: 11, name: "Sanjar Vohidov", pos: "MID (Yarim himoya)", goals: 4 },
+          { num: 5, name: "Otabek G'aniyev", pos: "DEF (Himoyachi)", goals: 3 }
+        ]
+      },
+      {
+        id: "lokomotiv-city",
+        name: "Lokomotiv City",
+        icon: "⚡",
+        league: "Super Liga A",
+        coach: "Valeriy Petrov",
+        captain: "Doniyor To'rayev",
+        played: 5,
+        wins: 3,
+        goals: 17,
+        pts: 9,
+        players: [
+          { num: 1, name: "Eldor Zokirov", pos: "GK (Darvozabon)", goals: 0 },
+          { num: 6, name: "Nodir Hakimov", pos: "DEF (Himoyachi)", goals: 2 },
+          { num: 10, name: "Doniyor To'rayev (C)", pos: "FWD (Hujumchi)", goals: 9 },
+          { num: 14, name: "Mirjalol Qosimov Jr", pos: "MID (Yarim himoya)", goals: 4 },
+          { num: 2, name: "Husan Norov", pos: "DEF (Himoyachi)", goals: 2 }
+        ]
+      },
+      {
+        id: "chilonzor-hawks",
+        name: "Chilonzor Hawks",
+        icon: "🦅",
+        league: "Super Liga B",
+        coach: "Farhod Tojiyev",
+        captain: "Kamron Saidov",
+        played: 5,
+        wins: 4,
+        goals: 21,
+        pts: 13,
+        players: [
+          { num: 16, name: "Sherzod Narzullayev", pos: "GK (Darvozabon)", goals: 0 },
+          { num: 5, name: "Anvar Jo'rayev", pos: "DEF (Himoyachi)", goals: 3 },
+          { num: 7, name: "Kamron Saidov (C)", pos: "FWD (Hujumchi)", goals: 8 },
+          { num: 8, name: "Diyorbek Yusupov", pos: "MID (Yarim himoya)", goals: 6 },
+          { num: 9, name: "Sunnatillo Bozorov", pos: "FWD (Hujumchi)", goals: 4 }
+        ]
+      },
+      {
+        id: "mirzo-ulugbek",
+        name: "Mirzo Ulug'bek FK",
+        icon: "⚔️",
+        league: "Super Liga B",
+        coach: "Zohid Ergashev",
+        captain: "Olimjon Shodiyev",
+        played: 5,
+        wins: 3,
+        goals: 16,
+        pts: 11,
+        players: [
+          { num: 1, name: "Akbar Xoliqov", pos: "GK (Darvozabon)", goals: 0 },
+          { num: 4, name: "Sarvar Qodirov", pos: "DEF (Himoyachi)", goals: 2 },
+          { num: 10, name: "Olimjon Shodiyev (C)", pos: "FWD (Hujumchi)", goals: 7 },
+          { num: 17, name: "Javohir Mamadaliyev", pos: "MID (Yarim himoya)", goals: 4 },
+          { num: 22, name: "Ravshan Sobirov", pos: "MID (Yarim himoya)", goals: 3 }
+        ]
+      },
+      {
+        id: "it-park-devs",
+        name: "IT Park Devs",
+        icon: "💻",
+        league: "Havaskorlar",
+        coach: "Behzod Dasturchi",
+        captain: "Jahongir Fullstack",
+        played: 4,
+        wins: 3,
+        goals: 18,
+        pts: 10,
+        players: [
+          { num: 1, name: "DevOps Davron", pos: "GK (Darvozabon)", goals: 0 },
+          { num: 3, name: "Frontend Farrux", pos: "DEF (Himoyachi)", goals: 3 },
+          { num: 7, name: "Jahongir Fullstack (C)", pos: "FWD (Hujumchi)", goals: 8 },
+          { num: 10, name: "Backend Botir", pos: "MID (Yarim himoya)", goals: 5 },
+          { num: 8, name: "Mobile Mirabbos", pos: "MID (Yarim himoya)", goals: 2 }
+        ]
+      }
+    ];
+
+    let currentSelectedTeam = null;
+
+    // 3. RENDER TEAMS GRID
+    function renderTeams(teamsToRender) {
+      const container = document.getElementById('teamsGridContainer');
+      container.innerHTML = '';
+
+      if (teamsToRender.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-dim);">
+            <div style="font-size: 40px; margin-bottom: 12px;">🔍</div>
+            <h4>Bunday jamoa topilmadi</h4>
+            <p style="font-size: 0.85rem;">Qidiruv so'zini o'zgartirib ko'ring yoki barcha jamoalarni tanlang.</p>
+          </div>
+        `;
+        return;
+      }
+
+      teamsToRender.forEach(team => {
+        const isCup = team.league === "Havaskorlar";
+        const card = document.createElement('div');
+        card.className = 'team-card';
+
+        card.innerHTML = `
+          <div>
+            <div class="team-card-top">
+              <div class="team-badge-icon">${team.icon}</div>
+              <span class="team-league-tag ${isCup ? 'cup' : ''}">${team.league}</span>
+            </div>
+
+            <div class="team-title-wrap">
+              <h4>${team.name}</h4>
+              <div class="team-meta-sub">
+                <span>👤 Sardor: ${team.captain}</span>
+              </div>
+            </div>
+
+            <div class="team-stats-box">
+              <div>
+                <span class="stat-num">${team.played}</span>
+                <span class="stat-lbl">O'yin</span>
+              </div>
+              <div>
+                <span class="stat-num" style="color: var(--accent-neon);">${team.wins}</span>
+                <span class="stat-lbl">G'alaba</span>
+              </div>
+              <div>
+                <span class="stat-num" style="color: var(--accent-gold);">${team.pts}</span>
+                <span class="stat-lbl">Ochko</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-card-actions">
+            <button class="btn-roster" onclick="openRosterModal('${team.id}')">Tarkib 📋</button>
+            <button class="btn-challenge" onclick="openChallengeModal('${team.name}')">Chaqiruv ⚔️</button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // 4. SEARCH & FILTERING
+    function handleSearch(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = TEAMS_LIST.filter(t => 
+        t.name.toLowerCase().includes(q) || 
+        t.captain.toLowerCase().includes(q) || 
+        t.league.toLowerCase().includes(q)
+      );
+      renderTeams(filtered);
+    }
+
+    function filterByGroup(groupKey, pillElement) {
+      if (pillElement) {
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        pillElement.classList.add('active');
+      }
+
+      if (groupKey === 'all') {
+        renderTeams(TEAMS_LIST);
+      } else {
+        const filtered = TEAMS_LIST.filter(t => t.league === groupKey);
+        renderTeams(filtered);
+      }
+    }
+
+    // 5. ROSTER MODAL
+    function openRosterModal(teamId) {
+      const team = TEAMS_LIST.find(t => t.id === teamId);
+      if (!team) return;
+
+      currentSelectedTeam = team;
+      document.getElementById('modalTeamIcon').textContent = team.icon;
+      document.getElementById('modalTeamName').textContent = team.name;
+      document.getElementById('modalTeamLeague').textContent = team.league;
+      document.getElementById('modalCoachName').textContent = team.coach;
+      document.getElementById('modalCaptainName').textContent = team.captain;
+
+      const playersContainer = document.getElementById('modalPlayersList');
+      playersContainer.innerHTML = '';
+
+      team.players.forEach(p => {
+        const row = document.createElement('div');
+        row.className = 'player-row';
+        row.innerHTML = `
+          <div class="player-num">#${p.num}</div>
+          <div class="player-info">
+            <span class="player-name">${p.name}</span>
+            <span class="player-pos-badge">${p.pos}</span>
+          </div>
+          <div class="player-stat">⚽ ${p.goals} ta gol</div>
+        `;
+        playersContainer.appendChild(row);
+      });
+
+      document.getElementById('rosterModal').classList.add('open');
+    }
+
+    function closeRosterModal() {
+      document.getElementById('rosterModal').classList.remove('open');
+    }
+
+    function triggerChallengeFromRoster() {
+      if (currentSelectedTeam) {
+        closeRosterModal();
+        openChallengeModal(currentSelectedTeam.name);
+      }
+    }
+
+    // 6. CHALLENGE MODAL (SPARING)
+    function openChallengeModal(teamName) {
+      document.getElementById('targetTeamName').value = teamName;
+      document.getElementById('challengeModal').classList.add('open');
+    }
+
+    function closeChallengeModal() {
+      document.getElementById('challengeModal').classList.remove('open');
+    }
+
+    // 7. TOAST HELPER
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMessage.textContent = message;
+      toastIcon.textContent = isError ? '❌' : '✅';
+      
+      if (isError) {
+        toast.classList.add('error');
+      } else {
+        toast.classList.remove('error');
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4500);
+    }
+
+    // 8. TELEGRAM BOT CHALLENGE SUBMISSION
+    async function handleChallengeSubmit(event) {
+      event.preventDefault();
+
+      const targetTeam = document.getElementById('targetTeamName').value;
+      const myTeam = document.getElementById('myTeamName').value.trim();
+      const myCaptain = document.getElementById('myCaptainName').value.trim();
+      const myPhone = document.getElementById('myPhone').value.trim();
+      const preferredDate = document.getElementById('preferredDate').value.trim();
+      const preferredArena = document.getElementById('preferredArena').value;
+      const notes = document.getElementById('challengeNotes').value.trim() || "Yo'q";
+
+      const submitBtn = document.getElementById('submitChallengeBtn');
+      const btnText = document.getElementById('btnChallText');
+      const btnIcon = document.getElementById('btnChallIcon');
+
+      if (!myTeam || !myCaptain || !myPhone || !preferredDate) {
+        showToast("Iltimos, barcha majburiy maydonlarni to'ldiring!", true);
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnText.textContent = "Chaqiruv Telegramga yuborilmoqda...";
+      btnIcon.textContent = "⏳";
+
+      const now = new Date();
+      const dateString = now.toLocaleString('uz-UZ', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+
+      const telegramMessage = `
+⚔️ <b>YANGI O'RTOQLIK O'YINI CHAQIRUVI (SPARING)!</b>
+━━━━━━━━━━━━━━━━━━
+🛡️ <b>Raqib Jamoa:</b> ${targetTeam}
+⚡ <b>Chaqiruvchi Jamoa:</b> ${myTeam}
+👤 <b>Sardor:</b> ${myCaptain}
+📞 <b>Telefon:</b> ${myPhone}
+
+📅 <b>Taklif Vaqti:</b> ${preferredDate}
+🏟️ <b>Maydon:</b> ${preferredArena}
+🕒 <b>Ariza vaqti:</b> ${dateString}
+
+📝 <b>Shartlar / Izoh:</b>
+<i>${notes}</i>
+━━━━━━━━━━━━━━━━━━
+🌐 <i>Arena UZ Matchmaking Tizimi</i>
+      `.trim();
+
+      try {
+        const url = `https://api.telegram.org/bot${TG_CONFIG.botToken}/sendMessage`;
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: TG_CONFIG.adminChatId,
+            text: telegramMessage,
+            parse_mode: 'HTML'
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.ok) {
+          showToast(`Chaqiruvingiz adminga yetkazildi! ${targetTeam} sardori bilan aloqa o'rnatiladi.`);
+          document.getElementById('challengeForm').reset();
+          closeChallengeModal();
+        } else {
+          console.error("Telegram API Error:", result);
+          showToast("Xabar jo'natishda xatolik yuz berdi.", true);
+        }
+      } catch (err) {
+        console.error("Network Error:", err);
+        showToast("Internet aloqasini tekshiring!", true);
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = "Chaqiruvni Telegram Botga Jo'natish";
+        btnIcon.textContent = "🚀";
+      }
+    }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTeams(TEAMS_LIST);
+    });
+  </script>
+</body>
+</html>

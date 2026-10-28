@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARENA UZ | Mini-Futbol Maydonlari & Turnirlar Markazi</title>
+  <meta name="description" content="Toshkentdagi eng zamonaviy mini-futbol maydonlarini onlayn band qilish, jonli turnir jadvallari, o'yin natijalari va jamoalar statistikasi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & DESIGN SYSTEM (DARK EMERALD / NEON FOOTBALL AESTHETICS)
+       ========================================================================== */
+    :root {
+      --bg-primary: #070a0f;
+      --bg-surface: #0e1520;
+      --bg-surface-elevated: #151f2e;
+      --bg-card: rgba(17, 26, 39, 0.75);
+      --bg-glass: rgba(14, 21, 32, 0.65);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(34, 197, 94, 0.5);
+      --border-glow: rgba(34, 197, 94, 0.35);
+      
+      --accent-green: #10b981;
+      --accent-neon: #22c55e;
+      --accent-lime: #84cc16;
+      --accent-gold: #f59e0b;
+      --accent-blue: #3b82f6;
+      --accent-red: #ef4444;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --shadow-glow: 0 0 25px rgba(34, 197, 94, 0.25);
+      --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ==========================================================================
+       2. RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+        linear-gradient(to bottom, #070a0f, #090e17);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    button, input, textarea {
+      font-family: inherit;
+      border: none;
+      outline: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       3. NAVIGATION (STICKY GLASSMORPHISM)
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 10, 15, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: var(--transition);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-neon), var(--accent-green));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+      font-size: 22px;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-neon);
+      font-weight: 700;
+      display: block;
+      margin-top: -2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-link {
+      padding: 10px 18px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-link.active {
+      color: var(--accent-neon);
+      border-bottom: 2px solid var(--accent-neon);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+      color: #042612;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 12px 22px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: transparent;
+      color: #fff;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       4. HERO SECTION
+       ========================================================================== */
+    .hero-section {
+      padding: 70px 0 60px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-neon);
+      margin-bottom: 22px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-neon);
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent-neon) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      margin-bottom: 34px;
+      max-width: 580px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 45px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .stat-item p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Hero Right Visual Card */
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-pitch-card {
+      background: linear-gradient(145deg, rgba(21, 31, 46, 0.95), rgba(14, 21, 32, 0.85));
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pitch-card::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.25), transparent 70%);
+      pointer-events: none;
+    }
+
+    .card-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-header-flex h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tag-live {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+    }
+
+    /* Football Field Visual Mini */
+    .mini-pitch {
+      width: 100%;
+      height: 180px;
+      background: #0f3d23;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: var(--radius-md);
+      position: relative;
+      margin-bottom: 22px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .mini-pitch-stripe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.08) 0px,
+        rgba(0, 0, 0, 0.08) 40px,
+        transparent 40px,
+        transparent 80px
+      );
+    }
+
+    .center-circle {
+      width: 70px;
+      height: 70px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .half-line {
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.35);
+      left: 50%;
+    }
+
+    .penalty-left {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 90px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-left: none;
+    }
+
+    .penalty-right {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 90px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-right: none;
+    }
+
+    .pitch-badge-floating {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-neon);
+      z-index: 2;
+    }
+
+    .quick-slots-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .time-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .time-chip:hover {
+      border-color: var(--accent-neon);
+      background: rgba(34, 197, 94, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .time-chip .time-val {
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: block;
+    }
+
+    .time-chip .time-status {
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .time-chip.free .time-status { color: var(--accent-neon); }
+    .time-chip.busy .time-status { color: var(--accent-red); opacity: 0.7; }
+    .time-chip.busy { opacity: 0.5; pointer-events: none; }
+
+    /* ==========================================================================
+       5. FEATURED / TOURNAMENT BANNER & SHORT STANDINGS
+       ========================================================================== */
+    .section-title-wrap {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 50px;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-neon);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* Dual Column Layout: Arenas & Tournament Snapshot */
+    .home-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .content-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .content-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-top h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge-gold {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--accent-gold);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+    }
+
+    /* Tournament Table Mini */
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.88rem;
+    }
+
+    .mini-table th {
+      text-align: left;
+      padding: 10px;
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .mini-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+
+    .team-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .team-icon {
+      width: 26px;
+      height: 26px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .pts-badge {
+      font-weight: 800;
+      color: var(--accent-neon);
+      background: rgba(34, 197, 94, 0.1);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    /* Pitch Specs Grid */
+    .pitch-features-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .spec-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .spec-item .spec-icon {
+      font-size: 20px;
+      color: var(--accent-neon);
+      margin-bottom: 8px;
+    }
+
+    .spec-item h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .spec-item p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       6. ARENA AMENITIES GRID (FULL 6 CARDS)
+       ========================================================================== */
+    .amenities-section {
+      padding: 40px 0 80px;
+    }
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .amenity-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .amenity-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-glow);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .amenity-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: var(--radius-md);
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .amenity-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .amenity-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ==========================================================================
+       7. TELEGRAM CONTACT & FEEDBACK FORM SECTION
+       ========================================================================== */
+    .contact-section {
+      padding: 50px 0 90px;
+    }
+
+    .tg-contact-card {
+      background: linear-gradient(135deg, rgba(14, 21, 32, 0.95), rgba(7, 10, 15, 0.9));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tg-contact-card::after {
+      content: '⚽';
+      position: absolute;
+      right: -30px;
+      bottom: -40px;
+      font-size: 200px;
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    .tg-info h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .tg-info p {
+      color: var(--text-muted);
+      margin-bottom: 26px;
+      font-size: 0.95rem;
+    }
+
+    .bot-status-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+    }
+
+    .tg-bot-icon {
+      font-size: 28px;
+    }
+
+    .bot-status-box strong {
+      display: block;
+      font-size: 0.92rem;
+    }
+
+    .bot-status-box span {
+      font-size: 0.78rem;
+      color: var(--accent-neon);
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(7, 10, 15, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      color: #fff;
+      font-size: 0.92rem;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-neon);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #22c55e, #10b981);
+      color: #042612;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+    }
+
+    .form-submit-btn:hover {
+      box-shadow: var(--shadow-glow);
+      filter: brightness(1.08);
+    }
+
+    .form-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Toast Notification */
+    .toast-box {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #111a27;
+      border: 1px solid var(--accent-neon);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      padding: 16px 22px;
+      border-radius: var(--radius-md);
+      z-index: 9999;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 380px;
+    }
+
+    .toast-box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-box.error {
+      border-color: var(--accent-red);
+    }
+
+    /* ==========================================================================
+       8. FOOTER
+       ========================================================================== */
+    .footer {
+      background: #040609;
+      border-top: 1px solid var(--border-subtle);
+      padding: 60px 0 30px;
+      margin-top: 60px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 14px;
+      max-width: 320px;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-neon);
+      padding-left: 4px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    /* ==========================================================================
+       9. RESPONSIVE DESIGN (MOBILE & TABLET)
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .home-split-grid {
+        grid-template-columns: 1fr;
+      }
+      .amenities-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .tg-contact-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: #070a0f;
+        flex-direction: column;
+        padding: 40px 24px;
+        transition: 0.3s ease;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .nav-menu.open {
+        left: 0;
+      }
+      .hamburger-btn {
+        display: block;
+      }
+      .nav-cta .btn-primary {
+        display: none;
+      }
+      .hero-title {
+        font-size: 2.35rem;
+      }
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .amenities-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" id="brand-logo-link">
+        <div class="logo-icon">⚽</div>
+        <div class="brand-text">
+          <h1>ARENA UZ</h1>
+          <span>MINI-FUTBOL & LIGA</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links (All 5 Pages) -->
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link active" id="nav-home">Bosh sahifa</a></li>
+          <li><a href="booking.html" class="nav-link" id="nav-booking">Maydon band qilish</a></li>
+          <li><a href="tournament.html" class="nav-link" id="nav-tournament">Turnir jadvali</a></li>
+          <li><a href="teams.html" class="nav-link" id="nav-teams">Jamoalar</a></li>
+          <li><a href="contact.html" class="nav-link" id="nav-contact">Bog'lanish & Qoidalar</a></li>
+        </ul>
+      </nav>
+
+      <!-- CTA Buttons & Mobile Hamburger -->
+      <div class="nav-cta">
+        <a href="booking.html" class="btn-primary" id="nav-cta-booking">
+          <span>Maydon tanlash</span>
+          <span>⚡</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menyu ochish">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       HERO BANNER SECTION
+       ======================================================================== -->
+  <main>
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="status-dot"></span>
+            <span>Hozir ochiq • Bugungi bo'sh vaqtlar mavjud</span>
+          </div>
+          
+          <h2 class="hero-title">
+            Toshkentdagi Eng Zamonaviy <span class="gradient-text">Mini-Futbol Arenasi</span> va Chempionati
+          </h2>
+
+          <p class="hero-description">
+            FIFA standartidagi sun'iy chim, tungi professional soyasiz yoritish tizimi, shinam dush va kiyinish xonalari hamda professional hakamlar ishtirokidagi shahar turnirlari.
+          </p>
+
+          <div class="hero-actions">
+            <a href="booking.html" class="btn-primary" id="hero-btn-book">
+              <span>Maydonni hoziroq band qiling</span>
+              <span>📅</span>
+            </a>
+            <a href="tournament.html" class="btn-secondary" id="hero-btn-tournament">
+              <span>Turnir jadvalini ko'rish</span>
+              <span>🏆</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h3>3 ta</h3>
+              <p>Professional Maydon</p>
+            </div>
+            <div class="stat-item">
+              <h3>1 400+</h3>
+              <p>Muvaffaqiyatli O'yin</p>
+            </div>
+            <div class="stat-item">
+              <h3>24 ta</h3>
+              <p>Turnir Jamoalari</p>
+            </div>
+            <div class="stat-item">
+              <h3>4.9 / 5</h3>
+              <p>Mijozlar Bahosi</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Mini Pitch & Quick Slot Preview -->
+        <div class="hero-visual">
+          <div class="hero-pitch-card">
+            <div class="card-header-flex">
+              <h4><span>🏟️</span> 1-Arena (Yopiq Stadioni)</h4>
+              <span class="tag-live">Bugungi o'yinlar</span>
+            </div>
+
+            <!-- Visual Football Pitch -->
+            <div class="mini-pitch">
+              <div class="mini-pitch-stripe"></div>
+              <div class="half-line"></div>
+              <div class="center-circle"></div>
+              <div class="penalty-left"></div>
+              <div class="penalty-right"></div>
+              <div class="pitch-badge-floating">Italiya chimi • 40x20m</div>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">
+              Bugungi eng talabgir vaqtlar holati:
+            </p>
+
+            <div class="quick-slots-preview">
+              <a href="booking.html" class="time-chip free" title="Band qilish uchun bosing">
+                <span class="time-val">19:00 - 20:00</span>
+                <span class="time-status">Bo'sh (Tanlash)</span>
+              </a>
+              <div class="time-chip busy" title="Bu vaqt band qilingan">
+                <span class="time-val">20:00 - 21:00</span>
+                <span class="time-status">Band</span>
+              </div>
+              <a href="booking.html" class="time-chip free" title="Band qilish uchun bosing">
+                <span class="time-val">21:00 - 22:00</span>
+                <span class="time-status">Bo'sh (Tanlash)</span>
+              </a>
+            </div>
+
+            <a href="booking.html" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 0.85rem;" id="hero-quick-slots-btn">
+              Barcha 3 ta maydon vaqtlarini ko'rish →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION: DUAL SNAPSHOT (ARENA SPECIFICATIONS & LIVE TOURNAMENT STANDINGS)
+         ======================================================================== -->
+    <section class="container" style="margin-top: 40px;">
+      <div class="home-split-grid">
+        
+        <!-- Left: Arena Maydonlari Haqida -->
+        <div class="content-card">
+          <div class="card-top">
+            <h3>
+              <span>Bizning Maydonlarimiz</span>
+              <span class="badge-gold">FIFA Quality</span>
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Har qanday ob-havoda o'ynash uchun mo'ljallangan yopiq va shamollatiladigan ochiq maydonlar.
+            </p>
+
+            <div class="pitch-features-list">
+              <div class="spec-item">
+                <div class="spec-icon">🏟️</div>
+                <h5>1-Arena (Yopiq)</h5>
+                <p>40x20m o'lcham, qishda isitish va yozda konditsioner tizimi.</p>
+              </div>
+              <div class="spec-item">
+                <div class="spec-icon">🌿</div>
+                <h5>2-Arena (Ochiq)</h5>
+                <p>Toza havo, maxsus amortizatsiyali sun'iy chim va drenaj.</p>
+              </div>
+              <div class="spec-item">
+                <div class="spec-icon">⭐</div>
+                <h5>VIP Mini-Stadion</h5>
+                <p>Shaxsiy kiyim almashtirish zali, suv va nimchalar kiritilgan.</p>
+              </div>
+              <div class="spec-item">
+                <div class="spec-icon">💡</div>
+                <h5>Tungi Yoritish</h5>
+                <p>500 Lux quvvatli professional LED projektorlar.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="booking.html" class="btn-primary" style="justify-content: center;" id="home-view-fields-btn">
+            Maydonlarni ko'rish va bron qilish ⚡
+          </a>
+        </div>
+
+        <!-- Right: Tournament Quick Standings -->
+        <div class="content-card">
+          <div class="card-top">
+            <h3>
+              <span>Toshkent Super Kubogi 2026</span>
+              <span class="tag-live">A Guruh Jadvali</span>
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Haftalik mini-futbol ligasi yetakchilari va eng so'nggi turnir holati.
+            </p>
+
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Jamoa</th>
+                  <th style="text-align: center;">O'</th>
+                  <th style="text-align: center;">G'</th>
+                  <th style="text-align: center;">Farq</th>
+                  <th style="text-align: right;">Ochko</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td class="team-cell"><span class="team-icon">🦁</span> Paxtakor Yunior</td>
+                  <td style="text-align: center;">5</td>
+                  <td style="text-align: center;">4</td>
+                  <td style="text-align: center; color: var(--accent-neon);">+11</td>
+                  <td style="text-align: right;"><span class="pts-badge">13</span></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td class="team-cell"><span class="team-icon">🦅</span> Bunyodkor Stars</td>
+                  <td style="text-align: center;">5</td>
+                  <td style="text-align: center;">3</td>
+                  <td style="text-align: center; color: var(--accent-neon);">+7</td>
+                  <td style="text-align: right;"><span class="pts-badge">10</span></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td class="team-cell"><span class="team-icon">⚡</span> Lokomotiv City</td>
+                  <td style="text-align: center;">5</td>
+                  <td style="text-align: center;">3</td>
+                  <td style="text-align: center; color: var(--accent-neon);">+3</td>
+                  <td style="text-align: right;"><span class="pts-badge">9</span></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td class="team-cell"><span class="team-icon">🐺</span> Bo'rilar FK</td>
+                  <td style="text-align: center;">5</td>
+                  <td style="text-align: center;">2</td>
+                  <td style="text-align: center; color: var(--accent-gold);">-2</td>
+                  <td style="text-align: right;"><span class="pts-badge">7</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <a href="tournament.html" class="btn-secondary" style="justify-content: center;" id="home-view-tourn-btn">
+            To'liq turnir jadvali va taqvim →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION: ARENA AMENITIES (6 GRID CARDS)
+         ======================================================================== -->
+    <section class="amenities-section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Afzalliklarimiz</span>
+          <h2 class="section-title">Nega Dasturchilar va Futbolchilar Aynan Bizni Tanlaydi?</h2>
+          <p class="section-desc">
+            Har bir detal professional darajadagi qulaylik va xavfsiz o'yin tajribasini ta'minlash uchun ishlab chiqilgan.
+          </p>
+        </div>
+
+        <div class="amenities-grid">
+          <div class="amenity-card">
+            <div class="amenity-icon-box">🌱</div>
+            <h4>Italiya Sun'iy Chimi</h4>
+            <p>Monofilament tolalari bilan jihozlangan 50mm qalinlikdagi travamiz bo'g'im va tizzalarga ortiqcha yuk tushishini oldini oladi.</p>
+          </div>
+
+          <div class="amenity-card">
+            <div class="amenity-icon-box">🚿</div>
+            <h4>Zamonaviy Dush & Kiyinish</h4>
+            <p>Doimiy issiq suv, shaxsiy qulflanadigan metall shkaflar, toza sochiqlar va gigiyenik fenlar bilan ta'minlangan.</p>
+          </div>
+
+          <div class="amenity-card">
+            <div class="amenity-icon-box">📹</div>
+            <h4>HD O'yin Videoyozuvi</h4>
+            <p>Har bir maydonga o'rnatilgan 4K kameralar orqali kiritilgan eng chiroyli gollaringizni Telegram orqali yuklab oling.</p>
+          </div>
+
+          <div class="amenity-card">
+            <div class="amenity-icon-box">☕</div>
+            <h4>Lounge & Mini Kafe</h4>
+            <p>O'yindan so'ng jamoangiz bilan muzdek sport ichimliklari, kofe, gazaklar va katta ekranda Yevropa futbolini tomosha qiling.</p>
+          </div>
+
+          <div class="amenity-card">
+            <div class="amenity-icon-box">🅿️</div>
+            <h4>24/7 Bepul Avtoturargoh</h4>
+            <p>50+ avtomobillarga mo'ljallangan, to'liq videokuzatuv ostidagi qulay va xavfsiz parkovka maydoni.</p>
+          </div>
+
+          <div class="amenity-card">
+            <div class="amenity-icon-box">🏆</div>
+            <h4>Haftalik va Oylik Ligalar</h4>
+            <p>Do'stlaringiz bilan jamoa tuzing va sovrin jamg'armasi 20 000 000 so'm bo'lgan muntazam chempionatimizda qatnashing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION: DIRECT TELEGRAM BOT INQUIRY & CONTACT FORM
+         ======================================================================== -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="tg-contact-card">
+          
+          <div class="tg-info">
+            <div class="bot-status-box">
+              <span class="tg-bot-icon">🤖</span>
+              <div>
+                <strong>Telegram Bot Administratori</strong>
+                <span>Online • Arizalar tezkor ko'rib chiqiladi</span>
+              </div>
+            </div>
+
+            <h3>Savollaringiz Bormi? Bizga To'g'ridan-To'g'ri Yozing!</h3>
+            <p>
+              Maydonlarni uzoq muddatli ijaraga olish, korporativ musobaqalar o'tkazish yoki o'rtoqlik uchrashuvi bo'yicha savollaringiz bo'lsa, formani to'ldiring. Xabaringiz darhol adminga boradi.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="color: var(--accent-neon);">📍</span>
+                <span>Toshkent shahar, Yunusobod tumani, Amir Temur ko'chasi 45-uy</span>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="color: var(--accent-neon);">📞</span>
+                <span>+998 (90) 123-45-67 / +998 (71) 200-00-11</span>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="color: var(--accent-neon);">⏰</span>
+                <span>Har kuni: 08:00 dan 02:00 gacha (Dam olish kunlarisiz)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Sending Directly via Telegram Bot API -->
+          <form id="quickContactForm" onsubmit="handleTelegramSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="userName">Ismingiz va Familiyangiz *</label>
+              <input type="text" id="userName" class="form-control" placeholder="Masalan: Sardor Aliyev" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="userPhone">Telefon Raqamingiz *</label>
+              <input type="tel" id="userPhone" class="form-control" placeholder="+998 90 123 45 67" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="userSubject">Mavzu / Xizmat turi</label>
+              <select id="userSubject" class="form-control" style="cursor: pointer;">
+                <option value="Maydon ijarasi">Maydon ijarasi bo'yicha savol</option>
+                <option value="Turnirda qatnashish">Turnirda jamoa bilan qatnashish</option>
+                <option value="Korporativ musobaqa">Korporativ tadbir o'tkazish</option>
+                <option value="O'rtoqlik o'yini raqib topish">Sparing (Raqib) topish</option>
+                <option value="Boshqa taklif">Boshqa taklif yoki shikoyat</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="userMessage">Xabaringiz / Savolingiz *</label>
+              <textarea id="userMessage" class="form-control" placeholder="Maydon bo'sh vaqtlari, narxlar yoki o'yin haqida batafsil yozing..." required></textarea>
+            </div>
+
+            <button type="submit" class="form-submit-btn" id="submitBtn">
+              <span id="btnText">Adminga Telegram orqali yuborish</span>
+              <span id="btnIcon">🚀</span>
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER SECTION
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo">
+            <div class="logo-icon">⚽</div>
+            <div class="brand-text">
+              <h1>ARENA UZ</h1>
+              <span>MINI-FUTBOL & LIGA</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Toshkentdagi eng sifatli qoplamali mini-futbol maydonlari va professional havaskorlar ligasi. Har bir o'yin — unutilmas tajriba!
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Sahifalar</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Bosh sahifa</a></li>
+            <li><a href="booking.html">Maydon band qilish</a></li>
+            <li><a href="tournament.html">Turnir jadvali</a></li>
+            <li><a href="teams.html">Jamoalar ro'yxati</a></li>
+            <li><a href="contact.html">Bog'lanish va Qoidalar</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Xizmatlar</h5>
+          <ul class="footer-links">
+            <li><a href="booking.html">Yopiq Arena A</a></li>
+            <li><a href="booking.html">Ochiq Arena B</a></li>
+            <li><a href="booking.html">VIP Stadion C</a></li>
+            <li><a href="tournament.html">Haftalik Ligalar</a></li>
+            <li><a href="contact.html">Korporativ Chempionat</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Ma'lumotlar</h5>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <span>Toshkent, Yunusobod tumani</span>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <span>+998 (90) 123-45-67</span>
+          </div>
+          <div class="footer-contact-item">
+            <span>🕒</span>
+            <span>08:00 - 02:00 Har kuni</span>
+          </div>
+          <div class="footer-contact-item">
+            <span>🤖</span>
+            <span>Telegram: @ArenaUz_bot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ARENA UZ. Barcha huquqlar himoyalangan.</p>
+        <p>Senior Full-Stack Code Architecture • Telegram Bot API Integratsiyasi</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Element -->
+  <div class="toast-box" id="toast">
+    <div id="toastIcon" style="font-size: 24px;">✅</div>
+    <div id="toastMessage" style="font-size: 0.9rem; font-weight: 600;">Xabaringiz muvaffaqiyatli yuborildi!</div>
+  </div>
+
+  <!-- ========================================================================
+       JAVASCRIPT LOGIC (TELEGRAM BOT API, MOBILE MENU, UI INTERACTIONS)
+       ======================================================================== -->
+  <script>
+    // 1. TELEGRAM BOT CREDENTIALS
+    const TG_CONFIG = {
+      botToken: "9151533091:AAF86MT4M0FcN8mnd_U4c0cCmb-lfblukiY",
+      adminChatId: "9151533091"
+    };
+
+    // 2. MOBILE MENU TOGGLE
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      hamburgerBtn.textContent = navMenu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+        navMenu.classList.remove('open');
+        hamburgerBtn.textContent = '☰';
+      }
+    });
+
+    // 3. TOAST NOTIFICATION HELPER
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMessage.textContent = message;
+      toastIcon.textContent = isError ? '❌' : '✅';
+      
+      if (isError) {
+        toast.classList.add('error');
+      } else {
+        toast.classList.remove('error');
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4500);
+    }
+
+    // 4. TELEGRAM BOT DIRECT SUBMISSION HANDLER
+    async function handleTelegramSubmit(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('userName').value.trim();
+      const phone = document.getElementById('userPhone').value.trim();
+      const subject = document.getElementById('userSubject').value;
+      const message = document.getElementById('userMessage').value.trim();
+
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnIcon = document.getElementById('btnIcon');
+
+      // Simple Validation
+      if (!name || !phone || !message) {
+        showToast("Iltimos, barcha majburiy maydonlarni to'ldiring!", true);
+        return;
+      }
+
+      // UI Loading State
+      submitBtn.disabled = true;
+      btnText.textContent = "Adminga yuborilmoqda...";
+      btnIcon.textContent = "⏳";
+
+      // Current Timestamp
+      const now = new Date();
+      const timeString = now.toLocaleString('uz-UZ', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+
+      // Format Telegram Message (HTML tags)
+      const telegramText = `
+⚡ <b>YANGI MUROJAAT (BOSH SAHIFA)</b>
+━━━━━━━━━━━━━━━━━━
+👤 <b>Mijoz:</b> ${name}
+📞 <b>Telefon:</b> ${phone}
+📌 <b>Mavzu:</b> ${subject}
+🕒 <b>Vaqt:</b> ${timeString}
+
+💬 <b>Xabar matni:</b>
+<i>${message}</i>
+━━━━━━━━━━━━━━━━━━
+🌐 <i>Arena UZ Bosh Sahifasi Orqali</i>
+      `.trim();
+
+      try {
+        const url = `https://api.telegram.org/bot${TG_CONFIG.botToken}/sendMessage`;
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: TG_CONFIG.adminChatId,
+            text: telegramText,
+            parse_mode: 'HTML'
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.ok) {
+          showToast("Xabaringiz adminga yetkazildi! Tez orada bog'lanamiz.");
+          document.getElementById('quickContactForm').reset();
+        } else {
+          console.error("Telegram API Error:", result);
+          showToast("Xabar yuborishda xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.", true);
+        }
+      } catch (error) {
+        console.error("Network Error:", error);
+        showToast("Internet aloqasini tekshiring yoki to'g'ridan-to'g'ri telefon qiling.", true);
+      } finally {
+        // Restore Button State
+        submitBtn.disabled = false;
+        btnText.textContent = "Adminga Telegram orqali yuborish";
+        btnIcon.textContent = "🚀";
+      }
+    }
+  </script>
+</body>
+</html>

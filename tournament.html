@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turnir Jadvali & Taqvim | ARENA UZ</title>
+  <meta name="description" content="Toshkent mini-futbol chempionati va kubogi. Jonli turnir jadvali, o'yinlar taqvimi, to'purarlar ro'yxati va jamoa arizasi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. THEME & DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      --bg-primary: #070a0f;
+      --bg-surface: #0e1520;
+      --bg-surface-elevated: #151f2e;
+      --bg-card: rgba(17, 26, 39, 0.75);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(34, 197, 94, 0.5);
+      --border-glow: rgba(34, 197, 94, 0.35);
+      
+      --accent-green: #10b981;
+      --accent-neon: #22c55e;
+      --accent-lime: #84cc16;
+      --accent-gold: #f59e0b;
+      --accent-blue: #3b82f6;
+      --accent-red: #ef4444;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --shadow-glow: 0 0 25px rgba(34, 197, 94, 0.25);
+      --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 15% 45%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
+        linear-gradient(to bottom, #070a0f, #090e17);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      border: none;
+      outline: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       2. NAVIGATION
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 10, 15, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-neon), var(--accent-green));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+      font-size: 22px;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-neon);
+      font-weight: 700;
+      display: block;
+      margin-top: -2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-link {
+      padding: 10px 18px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-link.active {
+      color: var(--accent-neon);
+      border-bottom: 2px solid var(--accent-neon);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: transparent;
+      color: #fff;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       3. TOURNAMENT HERO & PRIZE BANNER
+       ========================================================================== */
+    .tournament-hero {
+      padding: 55px 0 35px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+      position: relative;
+    }
+
+    .hero-top-badges {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .badge-prize {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--accent-gold);
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 6px 18px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-season {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--accent-neon);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+    }
+
+    .tournament-title {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .tournament-desc {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin: 0 auto 30px;
+    }
+
+    .hero-cta-center {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-apply-tournament {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #1a0f00;
+      font-weight: 800;
+      font-size: 0.98rem;
+      padding: 13px 28px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
+      transition: var(--transition);
+    }
+
+    .btn-apply-tournament:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+      filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.94rem;
+      padding: 13px 24px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ==========================================================================
+       4. TABS NAVIGATION (GROUPS & FIXTURES)
+       ========================================================================== */
+    .tournament-main {
+      padding: 45px 0 90px;
+    }
+
+    .league-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 16px;
+      margin-bottom: 35px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .league-tab-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .league-tab-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .league-tab-btn.active {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: var(--accent-neon);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+    }
+
+    /* ==========================================================================
+       5. STANDINGS TABLE STYLING
+       ========================================================================== */
+    .table-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 50px;
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+
+    .table-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .table-top-bar h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .table-legend {
+      display: flex;
+      gap: 16px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .table-legend span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot-qualify {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-neon);
+    }
+
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      min-width: 720px;
+    }
+
+    .standings-table th {
+      text-align: left;
+      padding: 14px 16px;
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-weight: 700;
+    }
+
+    .standings-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    .standings-table tbody tr {
+      transition: var(--transition);
+    }
+
+    .standings-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .pos-cell {
+      font-weight: 800;
+      font-size: 0.95rem;
+      width: 40px;
+      text-align: center;
+    }
+
+    .top-qualify {
+      border-left: 3px solid var(--accent-neon);
+    }
+
+    .team-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .team-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .form-pills {
+      display: flex;
+      gap: 4px;
+    }
+
+    .form-pill {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+
+    .form-pill.w { background: rgba(34, 197, 94, 0.2); color: var(--accent-neon); }
+    .form-pill.d { background: rgba(245, 158, 11, 0.2); color: var(--accent-gold); }
+    .form-pill.l { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+
+    .pts-badge {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--accent-neon);
+      background: rgba(34, 197, 94, 0.12);
+      padding: 6px 14px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    /* ==========================================================================
+       6. FIXTURES & RESULTS DUAL GRID
+       ========================================================================== */
+    .fixtures-section {
+      margin-bottom: 60px;
+    }
+
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .section-header-row h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .matches-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .match-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .match-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .match-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 8px;
+    }
+
+    .match-teams-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .match-team {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .match-team.away {
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    .score-badge {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 16px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .score-badge.live {
+      border-color: var(--accent-red);
+      color: #fca5a5;
+    }
+
+    .score-badge.upcoming {
+      font-size: 0.85rem;
+      color: var(--accent-neon);
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .match-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       7. TOP SCORERS LEADERBOARD
+       ========================================================================== */
+    .scorers-section {
+      margin-bottom: 60px;
+    }
+
+    .scorers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .scorer-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+    }
+
+    .scorer-rank {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text-dim);
+      width: 32px;
+      text-align: center;
+    }
+
+    .scorer-rank.gold { color: var(--accent-gold); }
+    .scorer-rank.silver { color: #cbd5e1; }
+    .scorer-rank.bronze { color: #d97706; }
+
+    .scorer-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--bg-surface-elevated);
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .scorer-info h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .scorer-info span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .scorer-stat {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .scorer-stat strong {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent-neon);
+      display: block;
+      line-height: 1;
+    }
+
+    .scorer-stat small {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       8. TEAM APPLICATION MODAL (DIRECT TELEGRAM INTEGRATION)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reg-modal {
+      background: #0d1522;
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius-lg);
+      max-width: 560px;
+      width: 100%;
+      padding: 36px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: var(--transition);
+    }
+
+    .modal-backdrop.open .reg-modal {
+      transform: scale(1);
+    }
+
+    .modal-close-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .reg-modal h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reg-modal p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      color: #fff;
+      font-size: 0.92rem;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    .btn-submit-app {
+      width: 100%;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #1a0f00;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+      transition: var(--transition);
+    }
+
+    .btn-submit-app:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+    }
+
+    .btn-submit-app:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Toast */
+    .toast-box {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #111a27;
+      border: 1px solid var(--accent-neon);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      padding: 16px 22px;
+      border-radius: var(--radius-md);
+      z-index: 9999;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 380px;
+    }
+
+    .toast-box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-box.error {
+      border-color: var(--accent-red);
+    }
+
+    /* ==========================================================================
+       9. FOOTER
+       ========================================================================== */
+    .footer {
+      background: #040609;
+      border-top: 1px solid var(--border-subtle);
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-neon);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .matches-grid { grid-template-columns: 1fr; }
+      .scorers-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: #070a0f;
+        flex-direction: column;
+        padding: 40px 24px;
+        transition: 0.3s ease;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .nav-menu.open { left: 0; }
+      .hamburger-btn { display: block; }
+      .tournament-title { font-size: 2.2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">⚽</div>
+        <div class="brand-text">
+          <h1>ARENA UZ</h1>
+          <span>MINI-FUTBOL & LIGA</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link">Bosh sahifa</a></li>
+          <li><a href="booking.html" class="nav-link">Maydon band qilish</a></li>
+          <li><a href="tournament.html" class="nav-link active">Turnir jadvali</a></li>
+          <li><a href="teams.html" class="nav-link">Jamoalar</a></li>
+          <li><a href="contact.html" class="nav-link">Bog'lanish & Qoidalar</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <button class="btn-apply-tournament" style="padding: 9px 18px; font-size: 0.85rem;" onclick="openApplyModal()">
+          <span>Turnirga Ariza</span>
+          <span>🏆</span>
+        </button>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menyu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       HERO BANNER
+       ======================================================================== -->
+  <header class="tournament-hero">
+    <div class="container">
+      <div class="hero-top-badges">
+        <div class="badge-prize">
+          <span>🏆</span>
+          <span>Sovrin Jamg'armasi: 25 000 000 so'm</span>
+        </div>
+        <div class="badge-season">
+          <span>Mavsum 2026 • 6-Tur O'yinlari</span>
+        </div>
+      </div>
+
+      <h2 class="tournament-title">Toshkent Super Kubogi & Ligasi</h2>
+      <p class="tournament-desc">
+        Haftalik professional darajadagi mini-futbol chempionati. Jonli turnir jadvali, o'yin natijalari va eng so'nggi to'purarlar ro'yxati.
+      </p>
+
+      <div class="hero-cta-center">
+        <button class="btn-apply-tournament" onclick="openApplyModal()">
+          <span>Turnirda Jamoa Bilan Qatnashish</span>
+          <span>⚡</span>
+        </button>
+        <a href="booking.html" class="btn-secondary">
+          <span>Oddiy Maydon Band Qilish</span>
+          <span>📅</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN TOURNAMENT CONTENT
+       ======================================================================== -->
+  <main class="tournament-main">
+    <div class="container">
+      
+      <!-- LEAGUE TABS -->
+      <div class="league-tabs">
+        <button class="league-tab-btn active" onclick="switchGroup('groupA', this)">
+          <span>🦁</span> Super Liga (A Guruh)
+        </button>
+        <button class="league-tab-btn" onclick="switchGroup('groupB', this)">
+          <span>🦅</span> Super Liga (B Guruh)
+        </button>
+        <button class="league-tab-btn" onclick="switchGroup('cup', this)">
+          <span>🏆</span> Havaskorlar Kubogi
+        </button>
+        <button class="league-tab-btn" onclick="switchGroup('playoff', this)">
+          <span>🔥</span> Pley-off Bosqichi
+        </button>
+      </div>
+
+      <!-- 1. STANDINGS TABLE CARD -->
+      <section class="table-card">
+        <div class="table-top-bar">
+          <div>
+            <h3 id="currentGroupName">🦁 Super Liga (A Guruh) Jadvali</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              Dastlabki 2 ta o'rin to'g'ridan-to'g'ri yarim final pley-off bosqichiga yo'l oladi.
+            </p>
+          </div>
+
+          <div class="table-legend">
+            <span><div class="dot-qualify"></div> Pley-off zonasi (1-2 o'rin)</span>
+            <span>🟩 G' (G'alaba)</span>
+            <span>🟨 D (Durang)</span>
+            <span>🟥 M (Mag'lubiyat)</span>
+          </div>
+        </div>
+
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th style="width: 45px; text-align: center;">#</th>
+              <th>Jamoa Nomi</th>
+              <th style="text-align: center;">O'</th>
+              <th style="text-align: center;">G'</th>
+              <th style="text-align: center;">D</th>
+              <th style="text-align: center;">M</th>
+              <th style="text-align: center;">T/N</th>
+              <th style="text-align: center;">Farq</th>
+              <th style="text-align: center;">Forma</th>
+              <th style="text-align: right;">Ochko</th>
+            </tr>
+          </thead>
+          <tbody id="standingsTableBody">
+            <!-- Injected by JavaScript based on active Group -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 2. FIXTURES & RESULTS (O'YINLAR TAQVIMI) -->
+      <section class="fixtures-section">
+        <div class="section-header-row">
+          <div>
+            <h3>O'yinlar Taqvimi va Natijalar</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Ushbu haftadagi navbatdagi markaziy to'qnashuvlar va yakunlangan hisoblar
+            </p>
+          </div>
+        </div>
+
+        <div class="matches-grid">
+          <!-- Match 1: Upcoming Center Match -->
+          <div class="match-card">
+            <div class="match-meta">
+              <span>📅 Shanba, 1-Noyabr • 20:00</span>
+              <span style="color: var(--accent-neon); font-weight: 700;">🏟️ 1-Arena (Yopiq)</span>
+            </div>
+            <div class="match-teams-row">
+              <div class="match-team">
+                <span class="team-logo-icon">🦁</span>
+                <span>Paxtakor Yunior</span>
+              </div>
+              <div class="score-badge upcoming">VS</div>
+              <div class="match-team away">
+                <span>Bunyodkor Stars</span>
+                <span class="team-logo-icon">🦅</span>
+              </div>
+            </div>
+            <div class="match-footer">
+              <span>Markaziy Bahs (1-o'rin uchun)</span>
+              <span style="color: var(--accent-gold); font-weight: 600;">Hakam: A. Rasulov</span>
+            </div>
+          </div>
+
+          <!-- Match 2: Upcoming Match -->
+          <div class="match-card">
+            <div class="match-meta">
+              <span>📅 Shanba, 1-Noyabr • 21:30</span>
+              <span style="color: var(--accent-neon); font-weight: 700;">🏟️ 2-Arena (Ochiq)</span>
+            </div>
+            <div class="match-teams-row">
+              <div class="match-team">
+                <span class="team-logo-icon">⚡</span>
+                <span>Lokomotiv City</span>
+              </div>
+              <div class="score-badge upcoming">VS</div>
+              <div class="match-team away">
+                <span>Bo'rilar FK</span>
+                <span class="team-logo-icon">🐺</span>
+              </div>
+            </div>
+            <div class="match-footer">
+              <span>6-Tur uchrashuvi</span>
+              <span style="color: var(--accent-gold); font-weight: 600;">Hakam: Sh. Qosimov</span>
+            </div>
+          </div>
+
+          <!-- Match 3: Finished Match -->
+          <div class="match-card">
+            <div class="match-meta">
+              <span>📅 26-Oktyabr (Tugagan)</span>
+              <span style="color: var(--text-dim);">🏟️ 1-Arena</span>
+            </div>
+            <div class="match-teams-row">
+              <div class="match-team">
+                <span class="team-logo-icon">🦁</span>
+                <span>Paxtakor Yunior</span>
+              </div>
+              <div class="score-badge">5 : 2</div>
+              <div class="match-team away">
+                <span>Spartak Yunusobod</span>
+                <span class="team-logo-icon">🛡️</span>
+              </div>
+            </div>
+            <div class="match-footer">
+              <span style="color: var(--accent-neon);">Yakunlangan (FT)</span>
+              <span>Gollar: Karimov (3), Aliyev (2)</span>
+            </div>
+          </div>
+
+          <!-- Match 4: Finished Match -->
+          <div class="match-card">
+            <div class="match-meta">
+              <span>📅 26-Oktyabr (Tugagan)</span>
+              <span style="color: var(--text-dim);">🏟️ VIP Stadion</span>
+            </div>
+            <div class="match-teams-row">
+              <div class="match-team">
+                <span class="team-logo-icon">🦅</span>
+                <span>Bunyodkor Stars</span>
+              </div>
+              <div class="score-badge">4 : 4</div>
+              <div class="match-team away">
+                <span>Lokomotiv City</span>
+                <span class="team-logo-icon">⚡</span>
+              </div>
+            </div>
+            <div class="match-footer">
+              <span style="color: var(--accent-gold);">Durang o'yin</span>
+              <span>Eng murosasiz bahs</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. TOP SCORERS LEADERBOARD -->
+      <section class="scorers-section">
+        <div class="section-header-row">
+          <div>
+            <h3>To'purarlar Jadvali (Oltin Butsa)</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Mavsum davomida eng ko'p to'p kiritgan mohir hujumchilar
+            </p>
+          </div>
+        </div>
+
+        <div class="scorers-grid">
+          <!-- Scorer 1 -->
+          <div class="scorer-card">
+            <div class="scorer-rank gold">1</div>
+            <div class="scorer-avatar">🥇</div>
+            <div class="scorer-info">
+              <h5>Sardor Rahimov</h5>
+              <span>Paxtakor Yunior</span>
+            </div>
+            <div class="scorer-stat">
+              <strong>14</strong>
+              <small>Gol (5 o'yin)</small>
+            </div>
+          </div>
+
+          <!-- Scorer 2 -->
+          <div class="scorer-card">
+            <div class="scorer-rank silver">2</div>
+            <div class="scorer-avatar">🥈</div>
+            <div class="scorer-info">
+              <h5>Ulug'bek Boboyev</h5>
+              <span>Bunyodkor Stars</span>
+            </div>
+            <div class="scorer-stat">
+              <strong>11</strong>
+              <small>Gol (5 o'yin)</small>
+            </div>
+          </div>
+
+          <!-- Scorer 3 -->
+          <div class="scorer-card">
+            <div class="scorer-rank bronze">3</div>
+            <div class="scorer-avatar">🥉</div>
+            <div class="scorer-info">
+              <h5>Doniyor To'rayev</h5>
+              <span>Lokomotiv City</span>
+            </div>
+            <div class="scorer-stat">
+              <strong>9</strong>
+              <small>Gol (5 o'yin)</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       TEAM APPLICATION MODAL (TELEGRAM INTEGRATION)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="applyModal">
+    <div class="reg-modal">
+      <button class="modal-close-icon" onclick="closeApplyModal()">✕</button>
+
+      <h3><span>🏆</span> Turnirda Qatnashish Arizasi</h3>
+      <p>Jamoangiz ma'lumotlarini kiriting. Ariza zudlik bilan adminga Telegram orqali yuboriladi va siz bilan tasdiqlash uchun bog'lanamiz.</p>
+
+      <form id="tournamentApplyForm" onsubmit="handleTournamentApply(event)">
+        <div class="form-group">
+          <label class="form-label" for="regTeamName">Jamoangiz Nomi *</label>
+          <input type="text" id="regTeamName" class="form-input" placeholder="Masalan: Paxtakor Yunusobod" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regCaptainName">Jamoa Sardori / Mas'ul Shaxs *</label>
+          <input type="text" id="regCaptainName" class="form-input" placeholder="Masalan: Bekzod Yusupov" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regPhone">Telefon Raqamingiz *</label>
+          <input type="tel" id="regPhone" class="form-input" placeholder="+998 90 123 45 67" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regPlayersCount">O'yinchilar Soni (Tarkib)</label>
+          <select id="regPlayersCount" class="form-input" style="cursor: pointer;">
+            <option value="6-8 nafar (Standart)">6-8 nafar o'yinchi</option>
+            <option value="9-12 nafar (Zaxira bilan)">9-12 nafar o'yinchi (Kengaytirilgan)</option>
+            <option value="12 nafardan ko'p">12+ nafar o'yinchi</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regLeague">Qaysi Ligada Qatnashmoqchisiz?</label>
+          <select id="regLeague" class="form-input" style="cursor: pointer;">
+            <option value="Super Liga (Professional / Tajribali)">Super Liga (Yuqori daraja)</option>
+            <option value="Havaskorlar Kubogi (Havaskor do'stlar)">Havaskorlar Kubogi (O'rta daraja)</option>
+            <option value="Haftalik Mini-Turnirlar">Haftalik Mini-Turnirlar</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regNotes">Forma Rangi va Qo'shimcha Izoh</label>
+          <input type="text" id="regNotes" class="form-input" placeholder="Masalan: Formamiz qora rangda, hamma butsali">
+        </div>
+
+        <button type="submit" class="btn-submit-app" id="submitAppBtn">
+          <span id="btnAppText">Arizani Telegram Orqali Jo'natish</span>
+          <span id="btnAppIcon">🚀</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-box" id="toast">
+    <div id="toastIcon" style="font-size: 24px;">✅</div>
+    <div id="toastMessage" style="font-size: 0.9rem; font-weight: 600;">Arizangiz qabul qilindi!</div>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 14px;">
+            <div class="logo-icon">⚽</div>
+            <div class="brand-text">
+              <h1>ARENA UZ</h1>
+              <span>MINI-FUTBOL & LIGA</span>
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 300px;">
+            Toshkentdagi mini-futbol turnirlari, statistikalar, o'yin natijalari va professional chempionatlar.
+          </p>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Sahifalar</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Bosh sahifa</a></li>
+            <li><a href="booking.html">Maydon band qilish</a></li>
+            <li><a href="tournament.html">Turnir jadvali</a></li>
+            <li><a href="teams.html">Jamoalar</a></li>
+            <li><a href="contact.html">Bog'lanish</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Ligalar</h5>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="switchGroup('groupA')">Super Liga (A Guruh)</a></li>
+            <li><a href="javascript:void(0)" onclick="switchGroup('groupB')">Super Liga (B Guruh)</a></li>
+            <li><a href="javascript:void(0)" onclick="switchGroup('cup')">Havaskorlar Kubogi</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Aloqa</h5>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px;">📍 Toshkent, Yunusobod tumani</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px;">📞 +998 (90) 123-45-67</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">🤖 Telegram: @ArenaUz_bot</p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 25px; display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-dim);">
+        <p>&copy; 2026 ARENA UZ. Turnirlar va Ligalar Boshqaruvi.</p>
+        <p>Barcha huquqlar himoyalangan.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       JAVASCRIPT LOGIC
+       ======================================================================== -->
+  <script>
+    // 1. CONFIG
+    const TG_CONFIG = {
+      botToken: "9151533091:AAF86MT4M0FcN8mnd_U4c0cCmb-lfblukiY",
+      adminChatId: "9151533091"
+    };
+
+    // Mobile Menu
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    hamburgerBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+    // 2. TOURNAMENT DATA
+    const TOURNAMENT_DATA = {
+      groupA: {
+        name: "🦁 Super Liga (A Guruh) Jadvali",
+        teams: [
+          { rank: 1, name: "Paxtakor Yunior", icon: "🦁", p: 5, w: 4, d: 1, l: 0, goals: "24-13", diff: "+11", form: ["W", "W", "W", "D", "W"], pts: 13 },
+          { rank: 2, name: "Bunyodkor Stars", icon: "🦅", p: 5, w: 3, d: 1, l: 1, goals: "19-12", diff: "+7", form: ["W", "L", "W", "W", "D"], pts: 10 },
+          { rank: 3, name: "Lokomotiv City", icon: "⚡", p: 5, w: 3, d: 0, l: 2, goals: "17-14", diff: "+3", form: ["L", "W", "W", "L", "W"], pts: 9 },
+          { rank: 4, name: "Bo'rilar FK", icon: "🐺", p: 5, w: 2, d: 1, l: 2, goals: "14-16", diff: "-2", form: ["W", "D", "L", "W", "L"], pts: 7 },
+          { rank: 5, name: "Spartak Yunusobod", icon: "🛡️", p: 5, w: 1, d: 1, l: 3, goals: "11-18", diff: "-7", form: ["L", "L", "D", "L", "W"], pts: 4 },
+          { rank: 6, name: "Qo'shchinor Siti", icon: "🌲", p: 5, w: 0, d: 0, l: 5, goals: "8-20", diff: "-12", form: ["L", "L", "L", "L", "L"], pts: 0 }
+        ]
+      },
+      groupB: {
+        name: "🦅 Super Liga (B Guruh) Jadvali",
+        teams: [
+          { rank: 1, name: "Chilonzor Hawks", icon: "🦅", p: 5, w: 4, d: 1, l: 0, goals: "21-10", diff: "+11", form: ["W", "W", "D", "W", "W"], pts: 13 },
+          { rank: 2, name: "Mirzo Ulug'bek FK", icon: "⚔️", p: 5, w: 3, d: 2, l: 0, goals: "16-8", diff: "+8", form: ["W", "D", "W", "D", "W"], pts: 11 },
+          { rank: 3, name: "Alpomish Jamoasi", icon: "🛡️", p: 5, w: 2, d: 1, l: 2, goals: "15-15", diff: "0", form: ["W", "L", "W", "L", "D"], pts: 7 },
+          { rank: 4, name: "Sergeli United", icon: "🚀", p: 5, w: 2, d: 0, l: 3, goals: "12-14", diff: "-2", form: ["L", "W", "L", "W", "L"], pts: 6 },
+          { rank: 5, name: "Yakkasaroy Lions", icon: "🦁", p: 5, w: 1, d: 1, l: 3, goals: "10-17", diff: "-7", form: ["D", "L", "L", "W", "L"], pts: 4 },
+          { rank: 6, name: "Toshkent Sharks", icon: "🦈", p: 5, w: 0, d: 1, l: 4, goals: "9-19", diff: "-10", form: ["L", "L", "D", "L", "L"], pts: 1 }
+        ]
+      },
+      cup: {
+        name: "🏆 Havaskorlar Kubogi (Guruh Bosqichi)",
+        teams: [
+          { rank: 1, name: "IT Park Devs", icon: "💻", p: 4, w: 3, d: 1, l: 0, goals: "18-7", diff: "+11", form: ["W", "W", "D", "W", "W"], pts: 10 },
+          { rank: 2, name: "Bankirlar FK", icon: "🏦", p: 4, w: 3, d: 0, l: 1, goals: "15-9", diff: "+6", form: ["W", "L", "W", "W", "W"], pts: 9 },
+          { rank: 3, name: "Tibbiyot Kolleji", icon: "💉", p: 4, w: 1, d: 1, l: 2, goals: "10-12", diff: "-2", form: ["L", "W", "D", "L", "L"], pts: 4 },
+          { rank: 4, name: "Yoshlik Talabalari", icon: "🎓", p: 4, w: 0, d: 0, l: 4, goals: "5-20", diff: "-15", form: ["L", "L", "L", "L", "L"], pts: 0 }
+        ]
+      },
+      playoff: {
+        name: "🔥 Pley-off Bosqichi (Chorak va Yarim Finallar)",
+        teams: [
+          { rank: 1, name: "Paxtakor Yunior (A1)", icon: "🦁", p: 1, w: 1, d: 0, l: 0, goals: "6-3", diff: "+3", form: ["W"], pts: 3 },
+          { rank: 2, name: "Chilonzor Hawks (B1)", icon: "🦅", p: 1, w: 1, d: 0, l: 0, goals: "4-2", diff: "+2", form: ["W"], pts: 3 },
+          { rank: 3, name: "Mirzo Ulug'bek FK (B2)", icon: "⚔️", p: 1, w: 0, d: 0, l: 1, goals: "2-4", diff: "-2", form: ["L"], pts: 0 },
+          { rank: 4, name: "Bunyodkor Stars (A2)", icon: "🦅", p: 1, w: 0, d: 0, l: 1, goals: "3-6", diff: "-3", form: ["L"], pts: 0 }
+        ]
+      }
+    };
+
+    // 3. RENDER STANDINGS TABLE
+    function renderStandings(groupKey) {
+      const data = TOURNAMENT_DATA[groupKey] || TOURNAMENT_DATA.groupA;
+      document.getElementById('currentGroupName').textContent = data.name;
+
+      const tbody = document.getElementById('standingsTableBody');
+      tbody.innerHTML = '';
+
+      data.teams.forEach((t, idx) => {
+        const isTopQualify = idx < 2;
+        const tr = document.createElement('tr');
+        if (isTopQualify) tr.className = 'top-qualify';
+
+        const formPillsHtml = t.form.map(f => {
+          const lower = f.toLowerCase();
+          return `<span class="form-pill ${lower}">${f}</span>`;
+        }).join('');
+
+        tr.innerHTML = `
+          <td class="pos-cell">${t.rank}</td>
+          <td>
+            <div class="team-cell">
+              <span class="team-logo-icon">${t.icon}</span>
+              <span>${t.name}</span>
+            </div>
+          </td>
+          <td style="text-align: center; font-weight: 700;">${t.p}</td>
+          <td style="text-align: center;">${t.w}</td>
+          <td style="text-align: center;">${t.d}</td>
+          <td style="text-align: center;">${t.l}</td>
+          <td style="text-align: center; color: var(--text-muted);">${t.goals}</td>
+          <td style="text-align: center; font-weight: 700; color: ${t.diff.startsWith('+') ? 'var(--accent-neon)' : (t.diff === '0' ? '#fff' : 'var(--accent-gold)')};">${t.diff}</td>
+          <td style="text-align: center;">
+            <div class="form-pills" style="justify-content: center;">${formPillsHtml}</div>
+          </td>
+          <td style="text-align: right;">
+            <span class="pts-badge">${t.pts}</span>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function switchGroup(groupKey, btnElement) {
+      if (btnElement) {
+        document.querySelectorAll('.league-tab-btn').forEach(b => b.classList.remove('active'));
+        btnElement.classList.add('active');
+      }
+      renderStandings(groupKey);
+    }
+
+    // 4. MODAL MANAGEMENT
+    function openApplyModal() {
+      document.getElementById('applyModal').classList.add('open');
+    }
+
+    function closeApplyModal() {
+      document.getElementById('applyModal').classList.remove('open');
+    }
+
+    // 5. TOAST HELPER
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMessage.textContent = message;
+      toastIcon.textContent = isError ? '❌' : '✅';
+      
+      if (isError) {
+        toast.classList.add('error');
+      } else {
+        toast.classList.remove('error');
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4500);
+    }
+
+    // 6. TELEGRAM SUBMISSION FOR TOURNAMENT APPLICATION
+    async function handleTournamentApply(event) {
+      event.preventDefault();
+
+      const teamName = document.getElementById('regTeamName').value.trim();
+      const captainName = document.getElementById('regCaptainName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const playersCount = document.getElementById('regPlayersCount').value;
+      const league = document.getElementById('regLeague').value;
+      const notes = document.getElementById('regNotes').value.trim() || "Yo'q";
+
+      const submitBtn = document.getElementById('submitAppBtn');
+      const btnText = document.getElementById('btnAppText');
+      const btnIcon = document.getElementById('btnAppIcon');
+
+      if (!teamName || !captainName || !phone) {
+        showToast("Iltimos, barcha majburiy maydonlarni to'ldiring!", true);
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnText.textContent = "Ariza Telegramga yuborilmoqda...";
+      btnIcon.textContent = "⏳";
+
+      const now = new Date();
+      const dateString = now.toLocaleString('uz-UZ', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+
+      const telegramMessage = `
+🏆 <b>YANGI TURNIR ARIZASI!</b>
+━━━━━━━━━━━━━━━━━━
+🛡️ <b>Jamoa:</b> ${teamName}
+👤 <b>Sardor / Murabbiy:</b> ${captainName}
+📞 <b>Telefon:</b> ${phone}
+👥 <b>Tarkib:</b> ${playersCount}
+🏅 <b>Tanlangan Liga:</b> ${league}
+🕒 <b>Vaqt:</b> ${dateString}
+
+📝 <b>Qo'shimcha izoh:</b>
+<i>${notes}</i>
+━━━━━━━━━━━━━━━━━━
+🌐 <i>Arena UZ Turnir Tizimi</i>
+      `.trim();
+
+      try {
+        const url = `https://api.telegram.org/bot${TG_CONFIG.botToken}/sendMessage`;
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: TG_CONFIG.adminChatId,
+            text: telegramMessage,
+            parse_mode: 'HTML'
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.ok) {
+          showToast("Arizangiz adminga yetkazildi! Tashkiliy qo'mita tez orada bog'lanadi.");
+          document.getElementById('tournamentApplyForm').reset();
+          closeApplyModal();
+        } else {
+          console.error("Telegram API Error:", result);
+          showToast("Xabar jo'natishda xatolik yuz berdi.", true);
+        }
+      } catch (err) {
+        console.error("Network Error:", err);
+        showToast("Internet aloqasini tekshiring!", true);
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = "Arizani Telegram Orqali Jo'natish";
+        btnIcon.textContent = "🚀";
+      }
+    }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', () => {
+      renderStandings('groupA');
+    });
+  </script>
+</body>
+</html>

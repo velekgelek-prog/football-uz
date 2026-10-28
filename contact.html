@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bog'lanish, Lokatsiya & Qoidalar | ARENA UZ</title>
+  <meta name="description" content="ARENA UZ mini-futbol majmuasi manzili, telefon raqamlari, ish vaqti, rasmiy tariflar, maydon qoidalari va to'g'ridan-to'g'ri aloqa.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. THEME & DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      --bg-primary: #070a0f;
+      --bg-surface: #0e1520;
+      --bg-surface-elevated: #151f2e;
+      --bg-card: rgba(17, 26, 39, 0.75);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(34, 197, 94, 0.5);
+      --border-glow: rgba(34, 197, 94, 0.35);
+      
+      --accent-green: #10b981;
+      --accent-neon: #22c55e;
+      --accent-lime: #84cc16;
+      --accent-gold: #f59e0b;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-red: #ef4444;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --shadow-glow: 0 0 25px rgba(34, 197, 94, 0.25);
+      --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 75%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+        linear-gradient(to bottom, #070a0f, #090e17);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      border: none;
+      outline: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       2. NAVIGATION
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 10, 15, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-neon), var(--accent-green));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+      font-size: 22px;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-neon);
+      font-weight: 700;
+      display: block;
+      margin-top: -2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-link {
+      padding: 10px 18px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-link.active {
+      color: var(--accent-neon);
+      border-bottom: 2px solid var(--accent-neon);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: transparent;
+      color: #fff;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       3. PAGE HEADER
+       ========================================================================== */
+    .contact-header {
+      padding: 50px 0 35px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .page-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-neon);
+      margin-bottom: 14px;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .page-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       4. QUICK CONTACT CARDS (4 GRID)
+       ========================================================================== */
+    .contact-cards-section {
+      padding: 45px 0;
+    }
+
+    .info-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .info-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(34, 197, 94, 0.4);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .info-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .info-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
+    .info-card-link {
+      color: var(--accent-neon);
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-card-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ==========================================================================
+       5. TWO COLUMNS: OFFICIAL PRICING MATRIX & ARENA RULES
+       ========================================================================== */
+    .pricing-rules-section {
+      padding: 30px 0 60px;
+    }
+
+    .split-grid-section {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+    }
+
+    .content-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .box-header {
+      margin-bottom: 24px;
+    }
+
+    .box-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .box-header p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* Pricing Table */
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .pricing-table th {
+      text-align: left;
+      padding: 12px 14px;
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .pricing-table td {
+      padding: 16px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .price-val {
+      font-weight: 800;
+      color: var(--accent-neon);
+    }
+
+    .pricing-badge-discount {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Rules List */
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .rule-item {
+      display: flex;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .rule-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .rule-text h5 {
+      font-size: 0.96rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .rule-text p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       6. LOCATION MAP & DIRECT TELEGRAM CONTACT FORM
+       ========================================================================== */
+    .contact-form-section {
+      padding: 30px 0 70px;
+    }
+
+    .form-map-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    /* Visual Map Card */
+    .map-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .map-visual-box {
+      width: 100%;
+      height: 240px;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      background-image: 
+        radial-gradient(rgba(34, 197, 94, 0.15) 1px, transparent 1px),
+        radial-gradient(rgba(255, 255, 255, 0.05) 1px, #0a0f1d 1px);
+      background-size: 20px 20px;
+    }
+
+    .map-pin-pulse {
+      width: 48px;
+      height: 48px;
+      background: rgba(34, 197, 94, 0.2);
+      border: 2px solid var(--accent-neon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+      animation: pulseMap 2s infinite;
+    }
+
+    @keyframes pulseMap {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    .map-buttons-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .map-nav-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .map-nav-btn:hover {
+      border-color: var(--accent-neon);
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    /* Telegram Direct Form */
+    .form-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 34px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-header-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      color: #fff;
+      font-size: 0.92rem;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-neon);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .btn-submit-contact {
+      width: 100%;
+      background: linear-gradient(135deg, #22c55e, #10b981);
+      color: #042612;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+    }
+
+    .btn-submit-contact:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+    }
+
+    .btn-submit-contact:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ==========================================================================
+       7. FAQ ACCORDION SECTION
+       ========================================================================== */
+    .faq-section {
+      padding: 40px 0 90px;
+    }
+
+    .faq-title-wrap {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .faq-accordion {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item.active {
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .faq-question {
+      padding: 18px 24px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .faq-arrow {
+      font-size: 14px;
+      color: var(--accent-neon);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-arrow {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      padding: 0 24px;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding: 0 24px 20px;
+    }
+
+    /* Toast */
+    .toast-box {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #111a27;
+      border: 1px solid var(--accent-neon);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      padding: 16px 22px;
+      border-radius: var(--radius-md);
+      z-index: 9999;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 380px;
+    }
+
+    .toast-box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-box.error {
+      border-color: var(--accent-red);
+    }
+
+    /* ==========================================================================
+       8. FOOTER
+       ========================================================================== */
+    .footer {
+      background: #040609;
+      border-top: 1px solid var(--border-subtle);
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-neon);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .info-cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .split-grid-section { grid-template-columns: 1fr; }
+      .form-map-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: #070a0f;
+        flex-direction: column;
+        padding: 40px 24px;
+        transition: 0.3s ease;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .nav-menu.open { left: 0; }
+      .hamburger-btn { display: block; }
+      .info-cards-grid { grid-template-columns: 1fr; }
+      .page-title { font-size: 2.1rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">⚽</div>
+        <div class="brand-text">
+          <h1>ARENA UZ</h1>
+          <span>MINI-FUTBOL & LIGA</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link">Bosh sahifa</a></li>
+          <li><a href="booking.html" class="nav-link">Maydon band qilish</a></li>
+          <li><a href="tournament.html" class="nav-link">Turnir jadvali</a></li>
+          <li><a href="teams.html" class="nav-link">Jamoalar</a></li>
+          <li><a href="contact.html" class="nav-link active">Bog'lanish & Qoidalar</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <a href="booking.html" class="btn-submit-contact" style="padding: 10px 20px; font-size: 0.88rem; width: auto; box-shadow: none;">
+          <span>Maydon Bron ⚡</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menyu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       PAGE HEADER
+       ======================================================================== -->
+  <header class="contact-header">
+    <div class="container">
+      <div class="page-badge">
+        <span>📍 Aloqa & Majmua Ma'lumotlari</span>
+      </div>
+      <h2 class="page-title">Bog'lanish, Lokatsiya va Qoidalar</h2>
+      <p class="page-subtitle">
+        Maydonlarimizning rasmiy ish tartibi, soatlik tariflar narxlari, ichki qoidalar va Telegram bot orqali to'g'ridan-to'g'ri adminga xabar yuborish imkoniyati.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       SECTION: QUICK INFO CARDS
+       ======================================================================== -->
+  <section class="contact-cards-section">
+    <div class="container">
+      <div class="info-cards-grid">
+        
+        <!-- Card 1: Phone -->
+        <div class="info-card">
+          <div>
+            <div class="info-card-icon">📞</div>
+            <h4>Telefon Aloqa</h4>
+            <p>Administrator va bron qilish bo'limi bilan to'g'ridan-to'g'ri bog'lanish:</p>
+          </div>
+          <a href="tel:+998901234567" class="info-card-link">+998 (90) 123-45-67 →</a>
+        </div>
+
+        <!-- Card 2: Location -->
+        <div class="info-card">
+          <div>
+            <div class="info-card-icon">📍</div>
+            <h4>Aniq Manzil</h4>
+            <p>Toshkent shahar, Yunusobod tumani, Amir Temur ko'chasi 45-uy.</p>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--accent-neon); font-weight: 700;">Mo'ljal: Shaxriston metrosi</span>
+        </div>
+
+        <!-- Card 3: Working Hours -->
+        <div class="info-card">
+          <div>
+            <div class="info-card-icon">⏰</div>
+            <h4>Ish Tartibi</h4>
+            <p>Har kuni dam olish kunlarisiz uzluksiz xizmat ko'rsatamiz:</p>
+          </div>
+          <span style="font-size: 0.9rem; color: #fff; font-weight: 800;">08:00 dan 02:00 gacha</span>
+        </div>
+
+        <!-- Card 4: Telegram Bot -->
+        <div class="info-card">
+          <div>
+            <div class="info-card-icon">🤖</div>
+            <h4>Telegram Bot</h4>
+            <p>Barcha arizalar va bronlar bevosita bot orqali qabul qilinadi:</p>
+          </div>
+          <span class="info-card-link">@ArenaUz_bot (Online)</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: PRICING MATRIX & ARENA RULES
+       ======================================================================== -->
+  <section class="pricing-rules-section">
+    <div class="container">
+      <div class="split-grid-section">
+        
+        <!-- Left: Official Price Table -->
+        <div class="content-box">
+          <div class="box-header">
+            <h3><span>💰</span> Rasmiy Maydon Tariflari</h3>
+            <p>Kunduzgi va tungi (Prime Time) soatlar uchun belgilangan narxlar</p>
+          </div>
+
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th>Maydon Turi</th>
+                <th>Kunduzgi (08:00 - 17:00)</th>
+                <th>Prime Time (17:00 - 02:00)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1-Arena (Yopiq)</strong></td>
+                <td><span class="price-val">180 000</span> so'm/soat</td>
+                <td><span class="price-val">250 000</span> so'm/soat</td>
+              </tr>
+              <tr>
+                <td><strong>2-Arena (Ochiq)</strong></td>
+                <td><span class="price-val">150 000</span> so'm/soat</td>
+                <td><span class="price-val">200 000</span> so'm/soat</td>
+              </tr>
+              <tr>
+                <td><strong>VIP Mini-Stadion</strong></td>
+                <td><span class="price-val">260 000</span> so'm/soat</td>
+                <td><span class="price-val">350 000</span> so'm/soat</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pricing-badge-discount">
+            <span>🎁</span>
+            <div>
+              <strong>Doimiy Jamoalar Uchun Chegirma:</strong>
+              <p style="font-size: 0.78rem; margin: 0; color: #cbd5e1;">Haftasiga 2 yoki undan ortiq marta o'ynaydigan jamoalarga oylik abonementda 15% chegirma beriladi!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Arena Rules -->
+        <div class="content-box">
+          <div class="box-header">
+            <h3><span>📋</span> Maydon Qoidalari</h3>
+            <p>Barcha futbolchilar va muxlislar rioya qilishi shart bo'lgan talablar</p>
+          </div>
+
+          <div class="rules-list">
+            <div class="rule-item">
+              <span class="rule-icon">👟</span>
+              <div class="rule-text">
+                <h5>To'g'ri Futbol Poyabzali (TF / Futzal)</h5>
+                <p>Sun'iy chimni asrash maqsadida metall tishli butsalar qat'iyan taqiqlanadi. Faqat rezina tishli (shirip) yoki tekis taglikli poyabzal ruxsat etiladi.</p>
+              </div>
+            </div>
+
+            <div class="rule-item">
+              <span class="rule-icon">⏱️</span>
+              <div class="rule-text">
+                <h5>Vaqtga Qat'iy Amal Qilish</h5>
+                <p>O'yin o'z vaqtida boshlanishi uchun o'yin boshlanishidan 15 daqiqa oldin kelish va belgilangan vaqt tugashi bilan maydonni bo'shatish so'raladi.</p>
+              </div>
+            </div>
+
+            <div class="rule-item">
+              <span class="rule-icon">🚭</span>
+              <div class="rule-text">
+                <h5>Ichki Tartib va Gigiyena</h5>
+                <p>Maydon hududida chekish, spirtli ichimliklar iste'mol qilish va saqich tashlash qat'iyan man etiladi. Kiyinish xonasida tozalikni saqlang.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: INTERACTIVE MAP & TELEGRAM CONTACT FORM
+       ======================================================================== -->
+  <section class="contact-form-section">
+    <div class="container">
+      <div class="form-map-grid">
+        
+        <!-- Left: Map Info Card -->
+        <div class="map-card">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; margin-bottom: 6px;">
+              <span>🗺️</span> Bizning Joylashuvimiz
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem;">
+              Shahar markazida, metro va jamoat transportiga juda yaqin qulay lokatsiya.
+            </p>
+          </div>
+
+          <!-- Stylized Dark Map Visual -->
+          <div class="map-visual-box">
+            <div class="map-pin-pulse">⚽</div>
+            <strong style="font-size: 1.1rem; color: #fff;">ARENA UZ MAJMUASI</strong>
+            <span style="font-size: 0.82rem; color: var(--accent-neon); margin-top: 4px;">Toshkent, Yunusobod tumani</span>
+            <small style="color: var(--text-muted); font-size: 0.72rem; margin-top: 2px;">Shaxriston metro bekatidan 300 metr</small>
+          </div>
+
+          <div class="map-buttons-row">
+            <a href="https://yandex.uz/maps" target="_blank" rel="noopener noreferrer" class="map-nav-btn">
+              <span>📍</span> Yandex Xarita
+            </a>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="map-nav-btn">
+              <span>🧭</span> Google Maps
+            </a>
+          </div>
+
+          <div style="font-size: 0.84rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 14px;">
+            <p>🚗 <strong>Avtoturargoh:</strong> Majmua oldida 50+ o'rinli bepul videokuzatuvli parkovka mavjud.</p>
+          </div>
+        </div>
+
+        <!-- Right: Direct Telegram Feedback Form -->
+        <div class="form-card">
+          <div class="form-header-badge">
+            <span style="font-size: 22px;">🤖</span>
+            <div>
+              <strong style="font-size: 0.95rem; color: #fff;">To'g'ridan-To'g'ri Adminga Yozing</strong>
+              <small style="display: block; color: var(--accent-neon); font-size: 0.75rem;">Xabaringiz Telegram bot orqali yetkaziladi</small>
+            </div>
+          </div>
+
+          <form id="contactFeedbackForm" onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="feedName">Ism va Familiyangiz *</label>
+              <input type="text" id="feedName" class="form-input" placeholder="Masalan: Azizbek Ergashev" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="feedPhone">Telefon Raqamingiz *</label>
+              <input type="tel" id="feedPhone" class="form-input" placeholder="+998 90 123 45 67" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="feedCategory">Murojaat Turi</label>
+              <select id="feedCategory" class="form-input" style="cursor: pointer;">
+                <option value="Umumiy savol">Umumiy savol yoki maslahat</option>
+                <option value="Uzoq muddatli ijara / Abonement">Uzoq muddatli ijara (Abonement)</option>
+                <option value="Korporativ musobaqa / Tadbir">Korporativ turnir tashkil qilish</option>
+                <option value="Hamkorlik va Reklama">Hamkorlik va Reklama</option>
+                <option value="Taklif yoki Shikoyat">Taklif yoki Shikoyat</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="feedMessage">Xabar Matni *</label>
+              <textarea id="feedMessage" class="form-input" placeholder="Savol yoki taklifingizni batafsil yozing..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-contact" id="submitFeedBtn">
+              <span id="btnFeedText">Adminga Telegram Orqali Jo'natish</span>
+              <span id="btnFeedIcon">🚀</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION: FAQ ACCORDION
+       ======================================================================== -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="faq-title-wrap">
+        <span style="color: var(--accent-neon); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Savol-Javoblar</span>
+        <h2 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; margin-top: 6px;">Tez-Tez Beriladigan Savollar</h2>
+      </div>
+
+      <div class="faq-accordion">
+        <!-- FAQ 1 -->
+        <div class="faq-item active">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Maydonni oldindan qancha vaqt oldin band qilish kerak?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            Ayniqsa soat 18:00 dan keyingi Prime Time vaqtlari juda tez band bo'ladi. Shu sababli maydonni kamida 1-2 kun oldin saytimiz orqali band qilishingizni tavsiya qilamiz.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Bronni bekor qilish yoki vaqtini ko'chirish mumkinmi?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            Ha, o'yin boshlanishiga kamida 4 soat qolganida administratorga telefon qilib yoki Telegram bot orqali ogohlantirsangiz, vaqtni bepul ko'chirib beramiz.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Yechinish xonalari va dush uchun alohida to'lov bormi?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            Yo'q, kiyinish xonalari, qulflanadigan shaxsiy shkaflar va issiq dush maydon ijarasi narxiga to'liq kiritilgan va mutlaqo bepul.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>To'lov qanday shakllarda qabul qilinadi?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            Siz to'lovni maydonga kelganingizda naqd pul, Click, Payme yoki bank kartalari orqali amalga oshirishingiz mumkin. Shuningdek korxona va tashkilotlar uchun hisob-raqam orqali shartnoma tuziladi.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast Notification -->
+  <div class="toast-box" id="toast">
+    <div id="toastIcon" style="font-size: 24px;">✅</div>
+    <div id="toastMessage" style="font-size: 0.9rem; font-weight: 600;">Xabaringiz adminga yetkazildi!</div>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 14px;">
+            <div class="logo-icon">⚽</div>
+            <div class="brand-text">
+              <h1>ARENA UZ</h1>
+              <span>MINI-FUTBOL & LIGA</span>
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 300px;">
+            Toshkentdagi mini-futbol maydonlarini onlayn band qilish va chempionatlar markazi.
+          </p>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Sahifalar</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Bosh sahifa</a></li>
+            <li><a href="booking.html">Maydon band qilish</a></li>
+            <li><a href="tournament.html">Turnir jadvali</a></li>
+            <li><a href="teams.html">Jamoalar ro'yxati</a></li>
+            <li><a href="contact.html">Bog'lanish & Qoidalar</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Tariflar</h5>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="window.scrollTo({top: 400, behavior: 'smooth'})">Kunduzgi tariflar</a></li>
+            <li><a href="javascript:void(0)" onclick="window.scrollTo({top: 400, behavior: 'smooth'})">Prime Time tariflar</a></li>
+            <li><a href="javascript:void(0)" onclick="window.scrollTo({top: 400, behavior: 'smooth'})">Oylik abonement</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 style="color: #fff; margin-bottom: 14px; font-weight: 700;">Aloqa</h5>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px;">📍 Toshkent, Yunusobod tumani</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px;">📞 +998 (90) 123-45-67</p>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">🤖 Telegram: @ArenaUz_bot</p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 25px; display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-dim);">
+        <p>&copy; 2026 ARENA UZ. Bog'lanish & Qoidalar.</p>
+        <p>Barcha huquqlar himoyalangan.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       JAVASCRIPT LOGIC
+       ======================================================================== -->
+  <script>
+    // 1. CONFIGURATION
+    const TG_CONFIG = {
+      botToken: "9151533091:AAF86MT4M0FcN8mnd_U4c0cCmb-lfblukiY",
+      adminChatId: "9151533091"
+    };
+
+    // Mobile Menu
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    hamburgerBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+    // 2. FAQ ACCORDION TOGGLE
+    function toggleFaq(element) {
+      const parent = element.parentElement;
+      const isOpen = parent.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+      
+      if (!isOpen) {
+        parent.classList.add('active');
+      }
+    }
+
+    // 3. TOAST NOTIFICATION HELPER
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMessage.textContent = message;
+      toastIcon.textContent = isError ? '❌' : '✅';
+      
+      if (isError) {
+        toast.classList.add('error');
+      } else {
+        toast.classList.remove('error');
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4500);
+    }
+
+    // 4. TELEGRAM BOT DIRECT FEEDBACK SUBMISSION
+    async function handleContactSubmit(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('feedName').value.trim();
+      const phone = document.getElementById('feedPhone').value.trim();
+      const category = document.getElementById('feedCategory').value;
+      const message = document.getElementById('feedMessage').value.trim();
+
+      const submitBtn = document.getElementById('submitFeedBtn');
+      const btnText = document.getElementById('btnFeedText');
+      const btnIcon = document.getElementById('btnFeedIcon');
+
+      if (!name || !phone || !message) {
+        showToast("Iltimos, barcha maydonlarni to'ldiring!", true);
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnText.textContent = "Xabar jo'natilmoqda...";
+      btnIcon.textContent = "⏳";
+
+      const now = new Date();
+      const dateString = now.toLocaleString('uz-UZ', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+
+      const telegramMessage = `
+📩 <b>YANGI ALOQA MUROJAATI (BOG'LANISH SAHIFASI)</b>
+━━━━━━━━━━━━━━━━━━
+👤 <b>Mijoz:</b> ${name}
+📞 <b>Telefon:</b> ${phone}
+📌 <b>Mavzu:</b> ${category}
+🕒 <b>Vaqt:</b> ${dateString}
+
+💬 <b>Xabar mazmuni:</b>
+<i>${message}</i>
+━━━━━━━━━━━━━━━━━━
+🌐 <i>Arena UZ Bog'lanish Markazi</i>
+      `.trim();
+
+      try {
+        const url = `https://api.telegram.org/bot${TG_CONFIG.botToken}/sendMessage`;
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: TG_CONFIG.adminChatId,
+            text: telegramMessage,
+            parse_mode: 'HTML'
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.ok) {
+          showToast("Xabaringiz adminga yetkazildi! Tez orada bog'lanamiz.");
+          document.getElementById('contactFeedbackForm').reset();
+        } else {
+          console.error("Telegram API Error:", result);
+          showToast("Xabar jo'natishda xatolik yuz berdi.", true);
+        }
+      } catch (err) {
+        console.error("Network Error:", err);
+        showToast("Internet aloqasini tekshiring!", true);
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = "Adminga Telegram Orqali Jo'natish";
+        btnIcon.textContent = "🚀";
+      }
+    }
+  </script>
+</body>
+</html>
